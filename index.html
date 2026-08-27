@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#071012">
+    <meta name="description" content="Compare two folder trees locally, find exact duplicate folders, and quarantine copies safely. Files never leave your device.">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+    <title>Mirrorbyte — Find duplicate folders locally</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to folder comparison</a>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Mirrorbyte home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span>MIRRORBYTE</span>
+      </a>
+      <div class="header-status">
+        <span class="privacy-chip"><span aria-hidden="true">●</span> Local only</span>
+        <span class="network-chip" id="network-status" aria-live="polite">Offline ready</span>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">// folder reconciliation utility</p>
+          <h1 id="hero-title">Know which folders<br><span>are truly the same.</span></h1>
+          <p class="lede">Compare backups, old drives, and photo dumps by their actual contents—not just names or dates. Every byte stays on this device.</p>
+        </div>
+        <picture class="hero-art">
+          <source type="image/avif" srcset="/assets/hero-directory-towers-640.avif 640w, /assets/hero-directory-towers-1024.avif 1024w" sizes="(max-width: 720px) 100vw, 48vw">
+          <source type="image/webp" srcset="/assets/hero-directory-towers-640.webp 640w, /assets/hero-directory-towers-1024.webp 1024w" sizes="(max-width: 720px) 100vw, 48vw">
+          <img src="/assets/hero-directory-towers-1024.png" width="1024" height="683" fetchpriority="high" decoding="async" alt="Pixel-art folder towers connected by a cyan comparison beam, with amber blocks marking differences">
+        </picture>
+        <div class="pixel-rule" aria-hidden="true"></div>
+      </section>
+
+      <section class="compare-dock" aria-labelledby="choose-title">
+        <div class="dock-heading">
+          <div>
+            <p class="step-label">01 / SELECT</p>
+            <h2 id="choose-title">Choose the folders to inspect</h2>
+          </div>
+          <p>Choose A alone to find duplicates inside one tree, or add B to compare two trees.</p>
+        </div>
+        <div class="source-grid">
+          <article class="source-card" data-side="A">
+            <span class="source-letter" aria-hidden="true">A</span>
+            <div class="source-copy">
+              <h3>Original / primary</h3>
+              <p id="source-a-status">No folder selected</p>
+            </div>
+            <button class="button button-secondary choose-button" id="choose-a" type="button">Choose folder A</button>
+            <input class="visually-hidden folder-input" id="input-a" type="file" multiple webkitdirectory aria-label="Choose folder A using browser upload">
+          </article>
+          <div class="compare-glyph" aria-hidden="true"><span></span><b>VS</b><span></span></div>
+          <article class="source-card" data-side="B">
+            <span class="source-letter" aria-hidden="true">B</span>
+            <div class="source-copy">
+              <h3>Backup / candidate</h3>
+              <p id="source-b-status">Optional for a one-root scan</p>
+            </div>
+            <button class="button button-secondary choose-button" id="choose-b" type="button">Choose folder B</button>
+            <input class="visually-hidden folder-input" id="input-b" type="file" multiple webkitdirectory aria-label="Choose folder B using browser upload">
+          </article>
+        </div>
+        <div class="dock-actions">
+          <button class="button button-primary" id="scan-button" type="button" disabled><span aria-hidden="true">▶</span> Scan locally</button>
+          <button class="text-button" id="sample-button" type="button">Try a tiny example</button>
+          <button class="text-button" id="import-button" type="button">Import report</button>
+          <input class="visually-hidden" id="import-input" type="file" accept="application/json,.json" aria-label="Import a Mirrorbyte JSON report">
+          <p class="local-note"><span aria-hidden="true">◆</span> No upload. No account. No tracking.</p>
+        </div>
+
+        <div class="scan-progress" id="scan-progress" hidden aria-live="polite">
+          <div class="progress-top"><strong id="progress-label">Reading folder names…</strong><span id="progress-count">0 / 0</span></div>
+          <div class="progress-track" role="progressbar" aria-label="Scan progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress-bar"></span></div>
+          <p id="progress-detail">Preparing local scanner</p>
+          <button class="text-button danger-text" id="cancel-button" type="button">Cancel scan</button>
+        </div>
+        <div class="inline-message" id="error-message" role="alert" hidden></div>
+      </section>
+
+      <section class="results" id="results" aria-labelledby="results-title" hidden>
+        <div class="result-heading">
+          <div>
+            <p class="step-label">02 / REVIEW</p>
+            <h2 id="results-title">Comparison result</h2>
+          </div>
+          <p id="scan-time"></p>
+        </div>
+
+        <div class="verdict" id="verdict">
+          <span class="verdict-icon" id="verdict-icon" aria-hidden="true">✓</span>
+          <div>
+            <p class="verdict-label" id="verdict-label">IDENTICAL</p>
+            <h3 id="verdict-title">These folder trees match exactly.</h3>
+            <p id="verdict-copy">Names, paths, sizes, and content hashes all agree.</p>
+          </div>
+        </div>
+
+        <dl class="summary-grid" id="summary-grid"></dl>
+
+        <div class="result-tools">
+          <div class="filter-tabs" role="group" aria-label="Filter result details">
+            <button type="button" data-filter="duplicates" aria-pressed="true">Duplicate folders <span id="duplicate-count">0</span></button>
+            <button type="button" data-filter="onlyA" aria-pressed="false">Only in A <span id="only-a-count">0</span></button>
+            <button type="button" data-filter="onlyB" aria-pressed="false">Only in B <span id="only-b-count">0</span></button>
+            <button type="button" data-filter="changed" aria-pressed="false">Changed <span id="changed-count">0</span></button>
+          </div>
+          <div class="export-actions">
+            <button class="button button-secondary" id="export-json" type="button">Export JSON</button>
+            <button class="button button-secondary" id="export-csv" type="button">Export CSV</button>
+          </div>
+        </div>
+
+        <div id="result-list" class="result-list" aria-live="polite"></div>
+        <div class="quarantine-bar" id="quarantine-bar" hidden>
+          <p><strong id="selected-count">0 folders selected</strong><br>Copies will be verified before originals move.</p>
+          <button class="button button-danger" id="quarantine-button" type="button">Review quarantine</button>
+        </div>
+        <div class="inline-message warning" id="scan-warnings" hidden></div>
+      </section>
+
+      <section class="how-it-works" aria-labelledby="how-title">
+        <div>
+          <p class="step-label">SAFETY MODEL</p>
+          <h2 id="how-title">Proof before cleanup.</h2>
+          <p>Mirrorbyte builds a fingerprint for every file, then rolls those fingerprints into each parent folder. A folder is called a duplicate only when the complete structure and contents match.</p>
+        </div>
+        <ol>
+          <li><span>01</span><div><strong>Discover</strong><p>Read names and sizes from the folders you choose.</p></div></li>
+          <li><span>02</span><div><strong>Hash locally</strong><p>Workers compute SHA-256 fingerprints without uploading.</p></div></li>
+          <li><span>03</span><div><strong>Review & quarantine</strong><p>Export proof, or copy duplicates to a reversible holding folder.</p></div></li>
+        </ol>
+      </section>
+    </main>
+
+    <footer>
+      <div><span class="brand small"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>MIRRORBYTE</span><p>Private folder comparison in your browser.</p></div>
+      <nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="https://github.com/B-Divyesh/sf-duplicate-folder-finder-web">Source</a></nav>
+      <p class="generation-note">Hero artwork generated for this product with Azure OpenAI.</p>
+    </footer>
+
+    <dialog id="quarantine-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-copy">
+      <form method="dialog">
+        <button class="dialog-close" value="cancel" aria-label="Close quarantine review">×</button>
+        <p class="step-label">03 / QUARANTINE</p>
+        <h2 id="dialog-title">Move reviewed copies?</h2>
+        <p id="dialog-copy">Each folder will first be copied and re-hashed inside a timestamped <code>.mirrorbyte-quarantine-…</code> folder. Only verified originals are then removed.</p>
+        <ul id="dialog-list"></ul>
+        <div class="dialog-note"><strong>Reversible:</strong> restore a folder by moving it back in your operating system. Mirrorbyte never empties quarantine.</div>
+        <div class="dialog-actions">
+          <button class="button button-secondary" value="cancel">Keep folders</button>
+          <button class="button button-danger" id="confirm-quarantine" value="default">Copy, verify & move</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" hidden></div>
+    <script type="module" src="/src/app.ts"></script>
+  </body>
+</html>
