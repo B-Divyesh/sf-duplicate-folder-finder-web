@@ -1,0 +1,313 @@
+{
+  "communities": {
+    "0": [
+      "src_quarantine",
+      "src_quarantine_collectcopied",
+      "src_quarantine_copydirectory",
+      "src_quarantine_quarantinefolder",
+      "src_quarantine_quarantinerequest",
+      "src_scanner",
+      "src_scanner_buildsnapshot",
+      "src_scanner_buildsnapshot_finalize",
+      "src_scanner_collectdirectory",
+      "src_scanner_collectdirectory_walk",
+      "src_scanner_comparesnapshots",
+      "src_scanner_digesttext",
+      "src_scanner_encoder",
+      "src_scanner_findduplicates",
+      "src_scanner_hashinputfiles",
+      "src_scanner_isancestor",
+      "src_scanner_messageof",
+      "src_scanner_mutablefolder",
+      "src_scanner_normalizepath",
+      "src_scanner_scansources",
+      "src_scanner_tofinding",
+      "src_scanner_workerreply",
+      "src_types",
+      "src_types_difference",
+      "src_types_duplicatefinding",
+      "src_types_foldersnapshot",
+      "src_types_hashedfile",
+      "src_types_inputfile",
+      "src_types_relation",
+      "src_types_scanprogress",
+      "src_types_scanreport",
+      "src_types_selectedsource",
+      "src_types_side",
+      "src_types_treesnapshot",
+      "tests_scanner_test",
+      "tests_scanner_test_file"
+    ],
+    "1": [
+      "src_app",
+      "src_app_byid",
+      "src_app_choosefolder",
+      "src_app_clearerror",
+      "src_app_confirmquarantine",
+      "src_app_dialog",
+      "src_app_duplicaterow",
+      "src_app_emptyrow",
+      "src_app_errormessage",
+      "src_app_escapehtml",
+      "src_app_formatbytes",
+      "src_app_formatcount",
+      "src_app_importreport",
+      "src_app_inputfolder",
+      "src_app_loadsample",
+      "src_app_messageof",
+      "src_app_openquarantinedialog",
+      "src_app_pathsoverlap",
+      "src_app_progresspanel",
+      "src_app_renderlist",
+      "src_app_renderquarantinebar",
+      "src_app_renderreport",
+      "src_app_resultssection",
+      "src_app_scanbutton",
+      "src_app_selected",
+      "src_app_selectedfindings",
+      "src_app_setscanning",
+      "src_app_setsourcestatus",
+      "src_app_showerror",
+      "src_app_showtoast",
+      "src_app_startscan",
+      "src_app_updatenetwork",
+      "src_app_updateprogress",
+      "src_app_verdictfor",
+      "src_scanner_filesfrominput"
+    ],
+    "2": [
+      "ref_dom",
+      "ref_dom_iterable",
+      "ref_es2022",
+      "ref_node",
+      "ref_playwright_config_ts",
+      "ref_src",
+      "ref_tests",
+      "ref_vite_client",
+      "ref_vite_config_ts",
+      "ref_vitest_config_ts",
+      "ref_webworker",
+      "tsconfig",
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_allowimportingtsextensions",
+      "tsconfig_compileroptions_isolatedmodules",
+      "tsconfig_compileroptions_lib",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduledetection",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_noemit",
+      "tsconfig_compileroptions_nouncheckedindexedaccess",
+      "tsconfig_compileroptions_nounusedlocals",
+      "tsconfig_compileroptions_nounusedparameters",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_strict",
+      "tsconfig_compileroptions_target",
+      "tsconfig_compileroptions_types",
+      "tsconfig_compileroptions_usedefineforclassfields",
+      "tsconfig_include"
+    ],
+    "3": [
+      "axe_core_playwright",
+      "package",
+      "package_devdependencies",
+      "package_devdependencies_axe_core_playwright",
+      "package_devdependencies_playwright_test",
+      "package_devdependencies_types_node",
+      "package_devdependencies_typescript",
+      "package_devdependencies_vite",
+      "package_devdependencies_vitest",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_check",
+      "package_scripts_dev",
+      "package_scripts_preview",
+      "package_scripts_test",
+      "package_scripts_test_e2e",
+      "package_type",
+      "package_version",
+      "playwright_test",
+      "types_node",
+      "typescript",
+      "vite",
+      "vitest"
+    ],
+    "4": [
+      "src_app_csvcell",
+      "src_app_datestamp",
+      "src_app_download",
+      "src_app_exportcsv",
+      "src_app_exportjson"
+    ],
+    "5": [
+      "src_storage",
+      "src_storage_clearreport",
+      "src_storage_loadreport",
+      "src_storage_opendatabase",
+      "src_storage_savereport"
+    ],
+    "6": [
+      "scripts_build_sw",
+      "scripts_build_sw_assets",
+      "scripts_build_sw_filesat",
+      "scripts_build_sw_version"
+    ],
+    "7": [
+      "src_vite_env_d",
+      "src_vite_env_d_filesystemdirectoryhandle",
+      "src_vite_env_d_filesystemdirectoryhandle_entries",
+      "src_vite_env_d_filesystemdirectoryhandle_requestpermission"
+    ],
+    "8": [
+      "src_hash_worker",
+      "src_hash_worker_hashrequest",
+      "src_hash_worker_scope"
+    ],
+    "9": [
+      "src_legal",
+      "src_legal_network"
+    ],
+    "10": [
+      "playwright_config"
+    ],
+    "11": [
+      "tests_e2e_app_spec"
+    ],
+    "12": [
+      "vite_config"
+    ],
+    "13": [
+      "vitest_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.11587301587301588,
+    "1": 0.14453781512605043,
+    "2": 0.06896551724137931,
+    "3": 0.08,
+    "4": 0.5,
+    "5": 0.7,
+    "6": 0.5,
+    "7": 0.5,
+    "8": 0.6666666666666666,
+    "9": 1.0,
+    "10": 1.0,
+    "11": 1.0,
+    "12": 1.0,
+    "13": 1.0
+  },
+  "gods": [
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 16
+    },
+    {
+      "id": "src_app_byid",
+      "label": "byId()",
+      "degree": 11
+    },
+    {
+      "id": "src_app_startscan",
+      "label": "startScan()",
+      "degree": 10
+    },
+    {
+      "id": "src_app_renderlist",
+      "label": "renderList()",
+      "degree": 10
+    },
+    {
+      "id": "src_app_choosefolder",
+      "label": "chooseFolder()",
+      "degree": 8
+    },
+    {
+      "id": "src_app_confirmquarantine",
+      "label": "confirmQuarantine()",
+      "degree": 8
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 7
+    },
+    {
+      "id": "src_app_renderreport",
+      "label": "renderReport()",
+      "degree": 7
+    },
+    {
+      "id": "src_quarantine_quarantinefolder",
+      "label": "quarantineFolder()",
+      "degree": 7
+    },
+    {
+      "id": "src_scanner_buildsnapshot",
+      "label": "buildSnapshot()",
+      "degree": 7
+    }
+  ],
+  "surprises": [
+    {
+      "source": "chooseFolder()",
+      "target": "collectDirectory()",
+      "source_files": [
+        "src/app.ts",
+        "src/scanner.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "startScan()",
+      "target": "scanSources()",
+      "source_files": [
+        "src/app.ts",
+        "src/scanner.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "startScan()",
+      "target": "saveReport()",
+      "source_files": [
+        "src/app.ts",
+        "src/storage.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "confirmQuarantine()",
+      "target": "quarantineFolder()",
+      "source_files": [
+        "src/app.ts",
+        "src/quarantine.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "importReport()",
+      "target": "saveReport()",
+      "source_files": [
+        "src/app.ts",
+        "src/storage.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}
