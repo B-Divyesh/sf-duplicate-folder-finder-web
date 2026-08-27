@@ -55,7 +55,7 @@ async function chooseFolder(side: Side): Promise<void> {
     const handle = await picker({ mode: 'read' });
     setSourceStatus(side, `Reading ${handle.name}…`, true);
     const collected = await collectDirectory(handle);
-    selected.set(side, { side, name: handle.name, files: collected.files, directories: collected.directories, handle });
+    selected.set(side, { side, name: handle.name, files: collected.files, directories: collected.directories, errors: collected.errors, handle });
     setSourceStatus(side, `${handle.name} · ${formatCount(collected.files.length, 'file')}`, true);
     if (collected.errors.length) showError(`Selected with ${collected.errors.length} unreadable item(s). They will be listed in the report.`);
     scanButton.disabled = false;
@@ -119,11 +119,11 @@ async function startScan(): Promise<void> {
   controller = new AbortController();
   setScanning(true);
   try {
-    const { report } = await scanSources(a, selected.get('B'), updateProgress, controller.signal);
+    const b = selected.get('B');
+    const { report } = await scanSources(a, b, updateProgress, controller.signal, [...(a.errors ?? []), ...(b?.errors ?? [])]);
     activeReport = report;
     await saveReport(report);
     renderReport(report);
-    showToast('Scan complete. The report was saved on this device.');
   } catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError') showError('Scan cancelled. No files were changed.');
     else showError(`The scan stopped. ${messageOf(error)}`);

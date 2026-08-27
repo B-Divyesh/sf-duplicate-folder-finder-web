@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://duplicate-folder-finder-web.sociobot.in/sitemap.xml

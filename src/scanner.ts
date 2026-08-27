@@ -184,21 +184,21 @@ export async function buildSnapshot(side: Side, rootName: string, files: HashedF
 
   const folders: FolderSnapshot[] = [];
   async function finalize(node: MutableFolder): Promise<{ hash: string; fileCount: number; folderCount: number; bytes: number }> {
-    const childRows: string[] = [];
+    const childRows: [string, string, string][] = [];
     let fileCount = node.files.length;
     let folderCount = 0;
     let bytes = node.files.reduce((sum, file) => sum + file.size, 0);
     for (const child of [...node.children.values()].sort((a, b) => a.name.localeCompare(b.name))) {
       const result = await finalize(child);
-      childRows.push(`D\0${child.name}\0${result.hash}`);
+      childRows.push(['directory', child.name, result.hash]);
       fileCount += result.fileCount;
       folderCount += result.folderCount + 1;
       bytes += result.bytes;
     }
     const fileRows = node.files
       .sort((a, b) => a.path.localeCompare(b.path))
-      .map((file) => `F\0${file.path}\0${file.size}\0${file.hash}`);
-    const hash = await digestText([...fileRows, ...childRows].join('\n'));
+      .map((file): [string, string, string, string] => ['file', file.path, String(file.size), file.hash]);
+    const hash = await digestText(JSON.stringify([...fileRows, ...childRows]));
     folders.push({ side, path: node.path, name: node.name, hash, fileCount, folderCount, bytes });
     return { hash, fileCount, folderCount, bytes };
   }

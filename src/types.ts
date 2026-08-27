@@ -79,5 +79,6 @@ export interface SelectedSource {
   name: string;
   files: InputFile[];
   directories: string[];
+  errors?: string[];
   handle?: FileSystemDirectoryHandle;
 }
