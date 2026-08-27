@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "tsc --noEmit && vite build && node scripts/build-sw.mjs",
+    "build": "tsc --noEmit && vite build && node scripts/build-sw.mjs && node scripts/verify-deploy-contract.mjs",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
     "test:e2e": "playwright test",

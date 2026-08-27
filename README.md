@@ -42,7 +42,13 @@ npx playwright install chromium  # once on a fresh machine
 npm run test:e2e # desktop/mobile UI, axe, console, and offline checks
 ```
 
-The static deploy artifact is `dist/`. Serve that directory with SPA-independent routes preserved (`/privacy/index.html` and `/terms/index.html`). The build generates a versioned service worker and precaches the complete app shell.
+The static deploy artifact is `dist/`. It includes `staticwebapp.config.json`, which is required for the Static Web Apps deployment: content-fingerprinted `/assets/*` receive one-year immutable caching, while HTML, the manifest, and `sw.js` use safe revalidation. The same configuration supplies the restrictive same-origin CSP, frame protection, and Permissions-Policy. Serve the artifact with the provided parity host when testing headers locally:
+
+```sh
+node scripts/serve-dist.mjs --port 4173
+```
+
+The build generates a versioned service worker and precaches the complete app shell.
 
 ## Project notes
 

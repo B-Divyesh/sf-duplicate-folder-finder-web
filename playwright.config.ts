@@ -8,7 +8,7 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   webServer: {
-    command: 'npm run preview -- --port 4173',
+    command: 'node scripts/serve-dist.mjs --port 4173',
     port: 4173,
     reuseExistingServer: true,
   },
