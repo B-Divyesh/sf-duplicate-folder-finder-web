@@ -1,0 +1,14 @@
+{
+  "slug": "duplicate-folder-finder-web",
+  "title": "Compare two folder trees and find duplicate folders — in the browser, no install",
+  "user": "People verifying a backup copy, merging old drives or photo dumps who need to know whether one folder is fully contained in another and which folders are exact duplicates.",
+  "smallest_useful_product": "A static offline PWA that selects two local folder trees, hashes files locally, computes per-folder Merkle hashes, classifies identical/contained/different trees, lists file differences and duplicate folders, exports reports, and quarantines reviewed duplicates.",
+  "artifact_class": "pwa-offline",
+  "monetization": "free",
+  "constraints": [
+    "File System Access API is Chromium-only; provide a read-only directory-upload fallback.",
+    "All file names and contents stay on device.",
+    "Destructive operations must be reversible through quarantine.",
+    "Symlinks and unreadable files must be reported honestly."
+  ]
+}
