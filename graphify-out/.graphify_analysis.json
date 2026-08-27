@@ -209,13 +209,13 @@
       "degree": 11
     },
     {
-      "id": "src_app_startscan",
-      "label": "startScan()",
+      "id": "src_app_renderlist",
+      "label": "renderList()",
       "degree": 10
     },
     {
-      "id": "src_app_renderlist",
-      "label": "renderList()",
+      "id": "src_app_startscan",
+      "label": "startScan()",
       "degree": 10
     },
     {
@@ -229,16 +229,6 @@
       "degree": 8
     },
     {
-      "id": "package_scripts",
-      "label": "scripts",
-      "degree": 7
-    },
-    {
-      "id": "src_app_renderreport",
-      "label": "renderReport()",
-      "degree": 7
-    },
-    {
       "id": "src_quarantine_quarantinefolder",
       "label": "quarantineFolder()",
       "degree": 7
@@ -247,9 +237,41 @@
       "id": "src_scanner_buildsnapshot",
       "label": "buildSnapshot()",
       "degree": 7
+    },
+    {
+      "id": "src_scanner_scansources",
+      "label": "scanSources()",
+      "degree": 7
+    },
+    {
+      "id": "src_app_renderreport",
+      "label": "renderReport()",
+      "degree": 7
     }
   ],
   "surprises": [
+    {
+      "source": "QuarantineRequest",
+      "target": "Side",
+      "source_files": [
+        "src/quarantine.ts",
+        "src/types.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "peripheral node `QuarantineRequest` unexpectedly reaches hub `Side`"
+    },
+    {
+      "source": "confirmQuarantine()",
+      "target": "quarantineFolder()",
+      "source_files": [
+        "src/app.ts",
+        "src/quarantine.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
     {
       "source": "chooseFolder()",
       "target": "collectDirectory()",
@@ -267,28 +289,6 @@
       "source_files": [
         "src/app.ts",
         "src/scanner.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "startScan()",
-      "target": "saveReport()",
-      "source_files": [
-        "src/app.ts",
-        "src/storage.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "confirmQuarantine()",
-      "target": "quarantineFolder()",
-      "source_files": [
-        "src/app.ts",
-        "src/quarantine.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
