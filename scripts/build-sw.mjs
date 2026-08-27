@@ -8,7 +8,7 @@ async function filesAt(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const path = join(directory, entry.name);
     if (entry.isDirectory()) output.push(...await filesAt(path));
-    else if (!entry.name.endsWith('.map') && entry.name !== 'sw.js') output.push(`/${relative(root, path)}`);
+    else if (!entry.name.endsWith('.map') && entry.name !== 'sw.js' && entry.name !== 'staticwebapp.config.json') output.push(`/${relative(root, path)}`);
   }
   return output;
 }

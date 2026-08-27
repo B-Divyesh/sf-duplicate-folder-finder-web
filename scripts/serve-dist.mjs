@@ -21,6 +21,8 @@ function headersFor(pathname) {
 }
 
 async function fileFor(pathname) {
+  // Azure Static Web Apps consumes this deployment file rather than publishing it.
+  if (pathname === '/staticwebapp.config.json') return undefined;
   const requested = decodeURIComponent(pathname);
   const relative = requested === '/' ? 'index.html' : requested.replace(/^\/+/, '');
   const candidate = resolve(root, normalize(relative));

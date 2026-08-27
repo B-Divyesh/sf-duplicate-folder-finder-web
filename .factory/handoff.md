@@ -28,7 +28,7 @@ curl -sSI http://127.0.0.1:4180/sw.js
 ```
 
 - Unit and contract tests: **9/9 passed**.
-- Production build: passed. The generated service worker precached **25** paths. The artifact contract verified **17** fingerprinted assets.
+- Production build: passed. The generated service worker precached **24** paths. The artifact contract verified **17** fingerprinted assets.
 - Browser suite: **8/8 passed** on desktop Chromium and Pixel 5 using the header-parity host. This includes local sample scan/export, serious/critical axe checks on home/privacy/terms, mobile layout, a service-worker-controlled offline reload, and the in-app offline state.
 - Local header parity: `/assets/app-BCSgPf8v.js` returned the one-year immutable policy; `/` and `/sw.js` returned `no-cache, must-revalidate`; all returned CSP, frame protection, and Permissions-Policy.
 - The prior independent File System Access scan coverage remains intact: exact nested/empty-directory comparison, containment boundary, unreadable-file warning recovery, malformed report recovery, local-only request audit, update toast, keyboard/reduced-motion, and production Lighthouse mobile 100 performance / 100 accessibility results are recorded in `.factory/verification.md`.

@@ -24,5 +24,6 @@ for (const asset of assets) {
 for (const required of ['index.html', 'offline.html', 'sw.js', 'staticwebapp.config.json', 'privacy/index.html', 'terms/index.html']) {
   await readFile(join(root, required));
 }
+assert.doesNotMatch(await readFile(join(root, 'sw.js'), 'utf8'), /staticwebapp\.config\.json/, 'deployment-only config must not break service-worker precache on Azure');
 
 console.log(`Deployment contract verified: ${assets.length} fingerprinted assets, hardened headers, safe shell revalidation.`);
