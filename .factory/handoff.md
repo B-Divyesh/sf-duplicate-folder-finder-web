@@ -33,9 +33,11 @@ curl -sSI http://127.0.0.1:4180/sw.js
 - Local header parity: `/assets/app-BCSgPf8v.js` returned the one-year immutable policy; `/` and `/sw.js` returned `no-cache, must-revalidate`; all returned CSP, frame protection, and Permissions-Policy.
 - The prior independent File System Access scan coverage remains intact: exact nested/empty-directory comparison, containment boundary, unreadable-file warning recovery, malformed report recovery, local-only request audit, update toast, keyboard/reduced-motion, and production Lighthouse mobile 100 performance / 100 accessibility results are recorded in `.factory/verification.md`.
 
-## Deploy
+## Deployment and live parity
 
-Deploy the committed `dist/` artifact as the existing **Standard-tier Azure Static Web App**. The repository intentionally contains no billing, DNS, or infrastructure mutation; the factory deployment is triggered by the commit. After deploy, verify the live root, a current hashed `/assets/app-*.js` file, and `/sw.js` against the same header contract before accepting it.
+- Deployed the `dist/` artifact from `a24fb73` to the existing **Standard-tier Azure Static Web App** `sf-duplicate-folder-finder-web` in `sociobot`. No plan, billing, DNS, or other infrastructure setting was changed.
+- Live checks at `https://duplicate-folder-finder-web.sociobot.in/` passed after deploy: `/assets/app-BCSgPf8v.js` returns `public, max-age=31536000, immutable`; `/` and `/sw.js` return `no-cache, must-revalidate`; all three return the configured CSP, `X-Frame-Options: DENY`, and Permissions-Policy.
+- The live HTML references the new content-fingerprinted hero assets, confirming the deployed artifact matches this repair.
 
 ## Known constraints
 
