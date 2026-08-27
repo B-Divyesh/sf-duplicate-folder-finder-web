@@ -1,3 +1,20 @@
+# Handoff — Independent verification PASS
+
+Date: 2026-08-27
+Work order: `duplicate-folder-finder-web-verify-2`
+Verified candidate: `a0cc8819346a79140516b3aef3663b21a81b15a6`
+Verified URL: <https://duplicate-folder-finder-web.sociobot.in/>
+
+## Status: PASS
+
+Independent QA used a clean detached checkout, a fresh production build, Desktop Chromium and 390px mobile browser sessions, and the live deployment. The product's local folder comparison, containment/difference/error recovery, export, safe quarantine flow, keyboard/focus/reduced-motion behavior, local-only request policy, PWA offline reload, and service-worker update notice passed. The live deployment matches all **23/23** deployable local artifacts by SHA-256.
+
+Quality evidence: `npm test` **9/9 passed**; `npm run build` passed; repository Playwright **8/8 passed**; live axe serious/critical **0**; console/page errors **0**; Lighthouse mobile **94 performance / 100 accessibility**. Versioned app assets are immutable for one year, while HTML/service worker revalidate; live security headers include CSP, frame denial, nosniff, referrer policy, Permissions-Policy, and HSTS.
+
+No defects were found. See `.factory/verification-2.md` for commands, exact response/header evidence, bundle sizes, test cases, and the known Chromium File System Access constraints.
+
+---
+
 # Handoff — duplicate-folder-finder-web deployment-contract repair
 
 Date: 2026-08-27
