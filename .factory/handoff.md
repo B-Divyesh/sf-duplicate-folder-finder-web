@@ -1,5 +1,11 @@
 # Handoff — duplicate-folder-finder-web build 1
 
+## Independent verification outcome — FAIL
+
+Verified on 2026-08-27 against candidate `65672c1c18b58741059a9d3027793416654ca749` and <https://duplicate-folder-finder-web.sociobot.in/>. The deployed 23 non-source-map production files match the candidate build byte-for-byte; application unit/build/E2E, independent File System Access flows, malformed-import recovery, desktop/390px keyboard/reduced-motion/axe checks, live offline reload, and PWA update behavior passed.
+
+**FAIL is deployment-contract-only:** live versioned assets use `Cache-Control: public, must-revalidate, max-age=30` rather than long-lived immutable caching, and the host omits `Content-Security-Policy`, framing protection, and `Permissions-Policy`. The full evidence, exact commands, performance numbers, and severity-ranked defects are in [.factory/verification.md](verification.md). No product code was changed by the verifier.
+
 Date: 2026-08-27
 
 Work order: `duplicate-folder-finder-web-build-1`
