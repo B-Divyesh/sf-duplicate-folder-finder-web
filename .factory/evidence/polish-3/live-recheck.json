@@ -1,0 +1,38 @@
+{
+  "base": "https://duplicate-folder-finder-web.sociobot.in",
+  "checkedAt": "2026-08-28T12:13:17.695Z",
+  "routes": {
+    "/": {
+      "status": 200,
+      "title": "Mirrorbyte — Compare folders and find duplicates",
+      "axeSeriousCritical": 0
+    },
+    "/demo": {
+      "status": 200,
+      "title": "Demo — Mirrorbyte",
+      "axeSeriousCritical": 0
+    },
+    "/privacy/": {
+      "status": 200,
+      "title": "Privacy — Mirrorbyte",
+      "axeSeriousCritical": 0
+    },
+    "/terms/": {
+      "status": 200,
+      "title": "Terms — Mirrorbyte",
+      "axeSeriousCritical": 0
+    },
+    "/cold-live-not-found": {
+      "status": 404,
+      "title": "Page not found — Mirrorbyte",
+      "axeSeriousCritical": 0
+    }
+  },
+  "checks": [
+    "cold 390px first action, one-click demo, and unobscured result",
+    "live single-folder and holding-folder wording",
+    "live legal route and Back focus",
+    "service-worker 404 and offline demo/privacy/terms/404"
+  ],
+  "consoleErrors": []
+}

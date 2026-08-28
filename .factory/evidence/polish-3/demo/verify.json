@@ -1,0 +1,14 @@
+{
+  "url": "https://duplicate-folder-finder-web.sociobot.in/demo",
+  "loadMs": 926,
+  "errors": [],
+  "a11y": {
+    "title": "Demo — Mirrorbyte",
+    "lang": "en",
+    "h1": 1,
+    "main": true,
+    "imgsMissingAlt": 0,
+    "buttonsUnlabeled": 0,
+    "textLength": 1847
+  }
+}
