@@ -287,28 +287,18 @@
       "degree": 11
     },
     {
-      "id": "src_app_startscan",
-      "label": "startScan()",
-      "degree": 10
-    },
-    {
       "id": "src_app_renderlist",
       "label": "renderList()",
       "degree": 10
     },
     {
-      "id": "package_scripts",
-      "label": "scripts",
-      "degree": 8
+      "id": "src_app_startscan",
+      "label": "startScan()",
+      "degree": 10
     },
     {
       "id": "src_app_choosefolder",
       "label": "chooseFolder()",
-      "degree": 8
-    },
-    {
-      "id": "src_app_renderreport",
-      "label": "renderReport()",
       "degree": 8
     },
     {
@@ -317,8 +307,18 @@
       "degree": 8
     },
     {
-      "id": "src_quarantine_quarantinefolder",
-      "label": "quarantineFolder()",
+      "id": "src_app_renderreport",
+      "label": "renderReport()",
+      "degree": 8
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 8
+    },
+    {
+      "id": "tests_e2e_claims_spec_memorydirectoryhandle",
+      "label": "MemoryDirectoryHandle",
       "degree": 7
     }
   ],
@@ -335,6 +335,17 @@
       "why": "peripheral node `QuarantineRequest` unexpectedly reaches hub `Side`"
     },
     {
+      "source": "chooseFolder()",
+      "target": "collectDirectory()",
+      "source_files": [
+        "src/app.ts",
+        "src/scanner.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
       "source": "confirmQuarantine()",
       "target": "quarantineFolder()",
       "source_files": [
@@ -348,17 +359,6 @@
     {
       "source": "startScan()",
       "target": "scanSources()",
-      "source_files": [
-        "src/app.ts",
-        "src/scanner.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "chooseFolder()",
-      "target": "collectDirectory()",
       "source_files": [
         "src/app.ts",
         "src/scanner.ts"
