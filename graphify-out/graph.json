@@ -4,18 +4,6 @@
   "graph": {},
   "nodes": [
     {
-      "id": "src_storage_storagespace",
-      "label": "StorageSpace",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "storagespace",
-      "source_file": "src/storage.ts",
-      "source_location": "L3"
-    },
-    {
       "id": "src_quarantine_quarantinerequest",
       "label": "QuarantineRequest",
       "_callable": true,
@@ -189,7 +177,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 11,
+      "community": 12,
       "file_type": "code",
       "norm_label": "filesystemdirectoryhandle",
       "source_file": "src/vite-env.d.ts",
@@ -201,7 +189,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 12,
+      "community": 13,
       "file_type": "code",
       "norm_label": "hashrequest",
       "source_file": "src/hash-worker.ts",
@@ -213,7 +201,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 14,
+      "community": 15,
       "file_type": "code",
       "norm_label": "claim",
       "source_file": "tests/claims-contract.test.ts",
@@ -242,6 +230,18 @@
       "norm_label": "memoryfilehandle",
       "source_file": "tests/e2e/claims.spec.ts",
       "source_location": "L123"
+    },
+    {
+      "id": "src_storage_storagespace",
+      "label": "StorageSpace",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "code",
+      "norm_label": "storagespace",
+      "source_file": "src/storage.ts",
+      "source_location": "L3"
     },
     {
       "id": "src_app_applyroute",
@@ -299,6 +299,39 @@
       "source_location": "L260"
     },
     {
+      "id": "src_app_csvcell",
+      "label": "csvCell()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "csvcell()",
+      "source_file": "src/app.ts",
+      "source_location": "L330"
+    },
+    {
+      "id": "src_app_datestamp",
+      "label": "dateStamp()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "datestamp()",
+      "source_file": "src/app.ts",
+      "source_location": "L331"
+    },
+    {
+      "id": "src_app_download",
+      "label": "download()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "download()",
+      "source_file": "src/app.ts",
+      "source_location": "L321"
+    },
+    {
       "id": "src_app_duplicaterow",
       "label": "duplicateRow()",
       "_callable": true,
@@ -341,6 +374,28 @@
       "norm_label": "escapehtml()",
       "source_file": "src/app.ts",
       "source_location": "L342"
+    },
+    {
+      "id": "src_app_exportcsv",
+      "label": "exportCsv()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "exportcsv()",
+      "source_file": "src/app.ts",
+      "source_location": "L294"
+    },
+    {
+      "id": "src_app_exportjson",
+      "label": "exportJson()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "exportjson()",
+      "source_file": "src/app.ts",
+      "source_location": "L289"
     },
     {
       "id": "src_app_formatbytes",
@@ -629,50 +684,6 @@
       "source_location": "L76"
     },
     {
-      "id": "src_storage_clearreport",
-      "label": "clearReport()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "clearreport()",
-      "source_file": "src/storage.ts",
-      "source_location": "L45"
-    },
-    {
-      "id": "src_storage_loadreport",
-      "label": "loadReport()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "loadreport()",
-      "source_file": "src/storage.ts",
-      "source_location": "L34"
-    },
-    {
-      "id": "src_storage_opendatabase",
-      "label": "openDatabase()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "opendatabase()",
-      "source_file": "src/storage.ts",
-      "source_location": "L12"
-    },
-    {
-      "id": "src_storage_savereport",
-      "label": "saveReport()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "savereport()",
-      "source_file": "src/storage.ts",
-      "source_location": "L23"
-    },
-    {
       "id": "src_quarantine_collectcopied",
       "label": "collectCopied()",
       "_callable": true,
@@ -864,7 +875,7 @@
       "label": ".entries()",
       "_callable": true,
       "_origin": "ast",
-      "community": 11,
+      "community": 12,
       "file_type": "code",
       "norm_label": ".entries()",
       "source_file": "src/vite-env.d.ts",
@@ -875,7 +886,7 @@
       "label": ".requestPermission()",
       "_callable": true,
       "_origin": "ast",
-      "community": 11,
+      "community": 12,
       "file_type": "code",
       "norm_label": ".requestpermission()",
       "source_file": "src/vite-env.d.ts",
@@ -1014,59 +1025,48 @@
       "source_location": "L16"
     },
     {
-      "id": "src_app_csvcell",
-      "label": "csvCell()",
+      "id": "src_storage_clearreport",
+      "label": "clearReport()",
       "_callable": true,
       "_origin": "ast",
       "community": 8,
       "file_type": "code",
-      "norm_label": "csvcell()",
-      "source_file": "src/app.ts",
-      "source_location": "L330"
+      "norm_label": "clearreport()",
+      "source_file": "src/storage.ts",
+      "source_location": "L45"
     },
     {
-      "id": "src_app_datestamp",
-      "label": "dateStamp()",
+      "id": "src_storage_loadreport",
+      "label": "loadReport()",
       "_callable": true,
       "_origin": "ast",
       "community": 8,
       "file_type": "code",
-      "norm_label": "datestamp()",
-      "source_file": "src/app.ts",
-      "source_location": "L331"
+      "norm_label": "loadreport()",
+      "source_file": "src/storage.ts",
+      "source_location": "L34"
     },
     {
-      "id": "src_app_download",
-      "label": "download()",
+      "id": "src_storage_opendatabase",
+      "label": "openDatabase()",
       "_callable": true,
       "_origin": "ast",
       "community": 8,
       "file_type": "code",
-      "norm_label": "download()",
-      "source_file": "src/app.ts",
-      "source_location": "L321"
+      "norm_label": "opendatabase()",
+      "source_file": "src/storage.ts",
+      "source_location": "L12"
     },
     {
-      "id": "src_app_exportcsv",
-      "label": "exportCsv()",
+      "id": "src_storage_savereport",
+      "label": "saveReport()",
       "_callable": true,
       "_origin": "ast",
       "community": 8,
       "file_type": "code",
-      "norm_label": "exportcsv()",
-      "source_file": "src/app.ts",
-      "source_location": "L294"
-    },
-    {
-      "id": "src_app_exportjson",
-      "label": "exportJson()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "file_type": "code",
-      "norm_label": "exportjson()",
-      "source_file": "src/app.ts",
-      "source_location": "L289"
+      "norm_label": "savereport()",
+      "source_file": "src/storage.ts",
+      "source_location": "L23"
     },
     {
       "id": "scripts_build_sw_filesat",
@@ -1160,26 +1160,6 @@
       "source_location": "L8"
     },
     {
-      "id": "src_storage",
-      "label": "storage.ts",
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "storage.ts",
-      "source_file": "src/storage.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_storage_db_names",
-      "label": "DB_NAMES",
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "db_names",
-      "source_file": "src/storage.ts",
-      "source_location": "L5"
-    },
-    {
       "id": "src_quarantine",
       "label": "quarantine.ts",
       "_origin": "ast",
@@ -1230,10 +1210,50 @@
       "source_location": "L1"
     },
     {
+      "id": "scripts_run_claim_contract",
+      "label": "run-claim-contract.mjs",
+      "_origin": "ast",
+      "community": 10,
+      "file_type": "code",
+      "norm_label": "run-claim-contract.mjs",
+      "source_file": "scripts/run-claim-contract.mjs",
+      "source_location": "L1"
+    },
+    {
+      "id": "scripts_run_claim_contract_claims",
+      "label": "claims",
+      "_origin": "ast",
+      "community": 10,
+      "file_type": "code",
+      "norm_label": "claims",
+      "source_file": "scripts/run-claim-contract.mjs",
+      "source_location": "L7"
+    },
+    {
+      "id": "scripts_run_claim_contract_root",
+      "label": "root",
+      "_origin": "ast",
+      "community": 10,
+      "file_type": "code",
+      "norm_label": "root",
+      "source_file": "scripts/run-claim-contract.mjs",
+      "source_location": "L6"
+    },
+    {
+      "id": "scripts_run_claim_contract_run",
+      "label": "run",
+      "_origin": "ast",
+      "community": 10,
+      "file_type": "code",
+      "norm_label": "run",
+      "source_file": "scripts/run-claim-contract.mjs",
+      "source_location": "L5"
+    },
+    {
       "id": "scripts_verify_deploy_contract",
       "label": "verify-deploy-contract.mjs",
       "_origin": "ast",
-      "community": 10,
+      "community": 11,
       "file_type": "code",
       "norm_label": "verify-deploy-contract.mjs",
       "source_file": "scripts/verify-deploy-contract.mjs",
@@ -1243,7 +1263,7 @@
       "id": "scripts_verify_deploy_contract_assetroute",
       "label": "assetRoute",
       "_origin": "ast",
-      "community": 10,
+      "community": 11,
       "file_type": "code",
       "norm_label": "assetroute",
       "source_file": "scripts/verify-deploy-contract.mjs",
@@ -1253,7 +1273,7 @@
       "id": "scripts_verify_deploy_contract_config",
       "label": "config",
       "_origin": "ast",
-      "community": 10,
+      "community": 11,
       "file_type": "code",
       "norm_label": "config",
       "source_file": "scripts/verify-deploy-contract.mjs",
@@ -1263,7 +1283,7 @@
       "id": "scripts_verify_deploy_contract_fallbackroute",
       "label": "fallbackRoute",
       "_origin": "ast",
-      "community": 10,
+      "community": 11,
       "file_type": "code",
       "norm_label": "fallbackroute",
       "source_file": "scripts/verify-deploy-contract.mjs",
@@ -1273,7 +1293,7 @@
       "id": "src_vite_env_d",
       "label": "vite-env.d.ts",
       "_origin": "ast",
-      "community": 11,
+      "community": 12,
       "file_type": "code",
       "norm_label": "vite-env.d.ts",
       "source_file": "src/vite-env.d.ts",
@@ -1283,7 +1303,7 @@
       "id": "src_hash_worker",
       "label": "hash-worker.ts",
       "_origin": "ast",
-      "community": 12,
+      "community": 13,
       "file_type": "code",
       "norm_label": "hash-worker.ts",
       "source_file": "src/hash-worker.ts",
@@ -1293,7 +1313,7 @@
       "id": "src_hash_worker_scope",
       "label": "scope",
       "_origin": "ast",
-      "community": 12,
+      "community": 13,
       "file_type": "code",
       "norm_label": "scope",
       "source_file": "src/hash-worker.ts",
@@ -1303,7 +1323,7 @@
       "id": "src_legal",
       "label": "legal.ts",
       "_origin": "ast",
-      "community": 13,
+      "community": 14,
       "file_type": "code",
       "norm_label": "legal.ts",
       "source_file": "src/legal.ts",
@@ -1313,7 +1333,7 @@
       "id": "src_legal_network",
       "label": "network",
       "_origin": "ast",
-      "community": 13,
+      "community": 14,
       "file_type": "code",
       "norm_label": "network",
       "source_file": "src/legal.ts",
@@ -1323,7 +1343,7 @@
       "id": "tests_claims_contract_test",
       "label": "claims-contract.test.ts",
       "_origin": "ast",
-      "community": 14,
+      "community": 15,
       "file_type": "code",
       "norm_label": "claims-contract.test.ts",
       "source_file": "tests/claims-contract.test.ts",
@@ -1333,7 +1353,7 @@
       "id": "tests_deployment_contract_test",
       "label": "deployment-contract.test.ts",
       "_origin": "ast",
-      "community": 15,
+      "community": 16,
       "file_type": "code",
       "norm_label": "deployment-contract.test.ts",
       "source_file": "tests/deployment-contract.test.ts",
@@ -1343,7 +1363,7 @@
       "id": "tests_deployment_contract_test_configpath",
       "label": "configPath",
       "_origin": "ast",
-      "community": 15,
+      "community": 16,
       "file_type": "code",
       "norm_label": "configpath",
       "source_file": "tests/deployment-contract.test.ts",
@@ -1353,7 +1373,7 @@
       "id": "playwright_config",
       "label": "playwright.config.ts",
       "_origin": "ast",
-      "community": 16,
+      "community": 17,
       "file_type": "code",
       "norm_label": "playwright.config.ts",
       "source_file": "playwright.config.ts",
@@ -1363,7 +1383,7 @@
       "id": "tests_e2e_app_spec",
       "label": "app.spec.ts",
       "_origin": "ast",
-      "community": 17,
+      "community": 18,
       "file_type": "code",
       "norm_label": "app.spec.ts",
       "source_file": "tests/e2e/app.spec.ts",
@@ -1373,20 +1393,10 @@
       "id": "vite_config",
       "label": "vite.config.ts",
       "_origin": "ast",
-      "community": 18,
+      "community": 19,
       "file_type": "code",
       "norm_label": "vite.config.ts",
       "source_file": "vite.config.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "vitest_config",
-      "label": "vitest.config.ts",
-      "_origin": "ast",
-      "community": 19,
-      "file_type": "code",
-      "norm_label": "vitest.config.ts",
-      "source_file": "vitest.config.ts",
       "source_location": "L1"
     },
     {
@@ -1680,6 +1690,16 @@
       "source_location": "L7"
     },
     {
+      "id": "vitest_config",
+      "label": "vitest.config.ts",
+      "_origin": "ast",
+      "community": 20,
+      "file_type": "code",
+      "norm_label": "vitest.config.ts",
+      "source_file": "vitest.config.ts",
+      "source_location": "L1"
+    },
+    {
       "id": "package",
       "label": "package.json",
       "_origin": "ast",
@@ -1707,7 +1727,7 @@
       "file_type": "code",
       "norm_label": "overrides",
       "source_file": "package.json",
-      "source_location": "L23"
+      "source_location": "L24"
     },
     {
       "id": "package_overrides_playwright_core",
@@ -1717,7 +1737,7 @@
       "file_type": "code",
       "norm_label": "playwright-core",
       "source_file": "package.json",
-      "source_location": "L24"
+      "source_location": "L25"
     },
     {
       "id": "package_private",
@@ -1757,7 +1777,7 @@
       "file_type": "code",
       "norm_label": "check",
       "source_file": "package.json",
-      "source_location": "L13"
+      "source_location": "L14"
     },
     {
       "id": "package_scripts_dev",
@@ -1800,6 +1820,16 @@
       "source_location": "L11"
     },
     {
+      "id": "package_scripts_test_claims_contract",
+      "label": "test:claims:contract",
+      "_origin": "ast",
+      "community": 3,
+      "file_type": "code",
+      "norm_label": "test:claims:contract",
+      "source_file": "package.json",
+      "source_location": "L12"
+    },
+    {
       "id": "package_scripts_test_e2e",
       "label": "test:e2e",
       "_origin": "ast",
@@ -1807,7 +1837,7 @@
       "file_type": "code",
       "norm_label": "test:e2e",
       "source_file": "package.json",
-      "source_location": "L12"
+      "source_location": "L13"
     },
     {
       "id": "package_type",
@@ -1837,7 +1867,7 @@
       "file_type": "code",
       "norm_label": "devdependencies",
       "source_file": "package.json",
-      "source_location": "L15"
+      "source_location": "L16"
     },
     {
       "id": "package_devdependencies_axe_core_playwright",
@@ -1847,7 +1877,7 @@
       "file_type": "code",
       "norm_label": "@axe-core/playwright",
       "source_file": "package.json",
-      "source_location": "L17"
+      "source_location": "L18"
     },
     {
       "id": "package_devdependencies_playwright_test",
@@ -1857,7 +1887,7 @@
       "file_type": "code",
       "norm_label": "@playwright/test",
       "source_file": "package.json",
-      "source_location": "L18"
+      "source_location": "L19"
     },
     {
       "id": "package_devdependencies_types_node",
@@ -1867,7 +1897,7 @@
       "file_type": "code",
       "norm_label": "@types/node",
       "source_file": "package.json",
-      "source_location": "L16"
+      "source_location": "L17"
     },
     {
       "id": "package_devdependencies_typescript",
@@ -1877,7 +1907,7 @@
       "file_type": "code",
       "norm_label": "typescript",
       "source_file": "package.json",
-      "source_location": "L19"
+      "source_location": "L20"
     },
     {
       "id": "package_devdependencies_vite",
@@ -1887,7 +1917,7 @@
       "file_type": "code",
       "norm_label": "vite",
       "source_file": "package.json",
-      "source_location": "L20"
+      "source_location": "L21"
     },
     {
       "id": "package_devdependencies_vitest",
@@ -1897,7 +1927,7 @@
       "file_type": "code",
       "norm_label": "vitest",
       "source_file": "package.json",
-      "source_location": "L21"
+      "source_location": "L22"
     },
     {
       "id": "axe_core_playwright",
@@ -1907,7 +1937,7 @@
       "file_type": "concept",
       "norm_label": "@axe-core/playwright",
       "source_file": "package.json",
-      "source_location": "L17"
+      "source_location": "L18"
     },
     {
       "id": "playwright_test",
@@ -1917,7 +1947,7 @@
       "file_type": "concept",
       "norm_label": "@playwright/test",
       "source_file": "package.json",
-      "source_location": "L18"
+      "source_location": "L19"
     },
     {
       "id": "types_node",
@@ -1927,7 +1957,7 @@
       "file_type": "concept",
       "norm_label": "@types/node",
       "source_file": "package.json",
-      "source_location": "L16"
+      "source_location": "L17"
     },
     {
       "id": "typescript",
@@ -1937,7 +1967,7 @@
       "file_type": "concept",
       "norm_label": "typescript",
       "source_file": "package.json",
-      "source_location": "L19"
+      "source_location": "L20"
     },
     {
       "id": "vite",
@@ -1947,7 +1977,7 @@
       "file_type": "concept",
       "norm_label": "vite",
       "source_file": "package.json",
-      "source_location": "L20"
+      "source_location": "L21"
     },
     {
       "id": "vitest",
@@ -1957,7 +1987,7 @@
       "file_type": "concept",
       "norm_label": "vitest",
       "source_file": "package.json",
-      "source_location": "L21"
+      "source_location": "L22"
     },
     {
       "id": "public_staticwebapp_config",
@@ -2158,6 +2188,26 @@
       "norm_label": "server",
       "source_file": "scripts/serve-dist.mjs",
       "source_location": "L44"
+    },
+    {
+      "id": "src_storage",
+      "label": "storage.ts",
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "code",
+      "norm_label": "storage.ts",
+      "source_file": "src/storage.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_storage_db_names",
+      "label": "DB_NAMES",
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "code",
+      "norm_label": "db_names",
+      "source_file": "src/storage.ts",
+      "source_location": "L5"
     },
     {
       "id": "scripts_build_sw",
@@ -3580,7 +3630,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "package.json",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -3592,7 +3642,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "package.json",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -3604,7 +3654,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "package.json",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -3616,7 +3666,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "package.json",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -3628,7 +3678,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "package.json",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -3640,7 +3690,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "package.json",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -4167,7 +4217,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "package.json",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -4189,7 +4239,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "package.json",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -4244,7 +4294,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "package.json",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -4255,7 +4305,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "package.json",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -4266,7 +4316,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "package.json",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -4277,7 +4327,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "package.json",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -4288,7 +4338,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "package.json",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -4299,7 +4349,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "package.json",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -4310,7 +4360,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "package.json",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -4337,7 +4387,7 @@
     },
     {
       "source": "package_scripts",
-      "target": "package_scripts_test_e2e",
+      "target": "package_scripts_test_claims_contract",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4348,13 +4398,24 @@
     },
     {
       "source": "package_scripts",
-      "target": "package_scripts_check",
+      "target": "package_scripts_test_e2e",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "package.json",
       "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "package_scripts",
+      "target": "package_scripts_check",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "package.json",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -4553,6 +4614,39 @@
       "confidence_score": 1.0,
       "source_file": "scripts/build-sw.mjs",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_run_claim_contract",
+      "target": "scripts_run_claim_contract_run",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/run-claim-contract.mjs",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_run_claim_contract",
+      "target": "scripts_run_claim_contract_root",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/run-claim-contract.mjs",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_run_claim_contract",
+      "target": "scripts_run_claim_contract_claims",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/run-claim-contract.mjs",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -6018,5 +6112,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "ecd4e1e7d98fde5bd8c6d50321f9a2cd218e098a"
+  "built_at_commit": "aa833a475c837ebfabab871f7281eedbfee84fed"
 }

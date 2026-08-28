@@ -7,12 +7,17 @@
       "src_app_choosefolder",
       "src_app_clearerror",
       "src_app_confirmquarantine",
+      "src_app_csvcell",
+      "src_app_datestamp",
       "src_app_dialog",
+      "src_app_download",
       "src_app_duplicaterow",
       "src_app_emptyrow",
       "src_app_enterdemofromlink",
       "src_app_errormessage",
       "src_app_escapehtml",
+      "src_app_exportcsv",
+      "src_app_exportjson",
       "src_app_formatbytes",
       "src_app_formatcount",
       "src_app_importreport",
@@ -43,14 +48,7 @@
       "src_app_updateprogress",
       "src_app_updateroutemetadata",
       "src_app_verdictfor",
-      "src_scanner_filesfrominput",
-      "src_storage",
-      "src_storage_clearreport",
-      "src_storage_db_names",
-      "src_storage_loadreport",
-      "src_storage_opendatabase",
-      "src_storage_savereport",
-      "src_storage_storagespace"
+      "src_scanner_filesfrominput"
     ],
     "1": [
       "src_quarantine",
@@ -134,6 +132,7 @@
       "package_scripts_preview",
       "package_scripts_test",
       "package_scripts_test_claims",
+      "package_scripts_test_claims_contract",
       "package_scripts_test_e2e",
       "package_type",
       "package_version"
@@ -194,11 +193,13 @@
       "scripts_serve_dist_server"
     ],
     "8": [
-      "src_app_csvcell",
-      "src_app_datestamp",
-      "src_app_download",
-      "src_app_exportcsv",
-      "src_app_exportjson"
+      "src_storage",
+      "src_storage_clearreport",
+      "src_storage_db_names",
+      "src_storage_loadreport",
+      "src_storage_opendatabase",
+      "src_storage_savereport",
+      "src_storage_storagespace"
     ],
     "9": [
       "scripts_build_sw",
@@ -207,68 +208,75 @@
       "scripts_build_sw_version"
     ],
     "10": [
+      "scripts_run_claim_contract",
+      "scripts_run_claim_contract_claims",
+      "scripts_run_claim_contract_root",
+      "scripts_run_claim_contract_run"
+    ],
+    "11": [
       "scripts_verify_deploy_contract",
       "scripts_verify_deploy_contract_assetroute",
       "scripts_verify_deploy_contract_config",
       "scripts_verify_deploy_contract_fallbackroute"
     ],
-    "11": [
+    "12": [
       "src_vite_env_d",
       "src_vite_env_d_filesystemdirectoryhandle",
       "src_vite_env_d_filesystemdirectoryhandle_entries",
       "src_vite_env_d_filesystemdirectoryhandle_requestpermission"
     ],
-    "12": [
+    "13": [
       "src_hash_worker",
       "src_hash_worker_hashrequest",
       "src_hash_worker_scope"
     ],
-    "13": [
+    "14": [
       "src_legal",
       "src_legal_network"
     ],
-    "14": [
+    "15": [
       "tests_claims_contract_test",
       "tests_claims_contract_test_claim"
     ],
-    "15": [
+    "16": [
       "tests_deployment_contract_test",
       "tests_deployment_contract_test_configpath"
     ],
-    "16": [
+    "17": [
       "playwright_config"
     ],
-    "17": [
+    "18": [
       "tests_e2e_app_spec"
     ],
-    "18": [
+    "19": [
       "vite_config"
     ],
-    "19": [
+    "20": [
       "vitest_config"
     ]
   },
   "cohesion": {
-    "0": 0.10530612244897959,
+    "0": 0.10726950354609929,
     "1": 0.11587301587301588,
     "2": 0.06896551724137931,
-    "3": 0.13333333333333333,
+    "3": 0.125,
     "4": 0.15384615384615385,
     "5": 0.15384615384615385,
     "6": 0.15384615384615385,
     "7": 0.32142857142857145,
-    "8": 0.5,
+    "8": 0.42857142857142855,
     "9": 0.5,
     "10": 0.5,
     "11": 0.5,
-    "12": 0.6666666666666666,
-    "13": 1.0,
+    "12": 0.5,
+    "13": 0.6666666666666666,
     "14": 1.0,
     "15": 1.0,
     "16": 1.0,
     "17": 1.0,
     "18": 1.0,
-    "19": 1.0
+    "19": 1.0,
+    "20": 1.0
   },
   "gods": [
     {
@@ -287,23 +295,23 @@
       "degree": 11
     },
     {
-      "id": "src_app_renderlist",
-      "label": "renderList()",
-      "degree": 10
-    },
-    {
       "id": "src_app_startscan",
       "label": "startScan()",
       "degree": 10
     },
     {
-      "id": "src_app_choosefolder",
-      "label": "chooseFolder()",
-      "degree": 8
+      "id": "src_app_renderlist",
+      "label": "renderList()",
+      "degree": 10
     },
     {
-      "id": "src_app_confirmquarantine",
-      "label": "confirmQuarantine()",
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 9
+    },
+    {
+      "id": "src_app_choosefolder",
+      "label": "chooseFolder()",
       "degree": 8
     },
     {
@@ -312,13 +320,13 @@
       "degree": 8
     },
     {
-      "id": "package_scripts",
-      "label": "scripts",
+      "id": "src_app_confirmquarantine",
+      "label": "confirmQuarantine()",
       "degree": 8
     },
     {
-      "id": "tests_e2e_claims_spec_memorydirectoryhandle",
-      "label": "MemoryDirectoryHandle",
+      "id": "src_quarantine_quarantinefolder",
+      "label": "quarantineFolder()",
       "degree": 7
     }
   ],
@@ -335,48 +343,48 @@
       "why": "peripheral node `QuarantineRequest` unexpectedly reaches hub `Side`"
     },
     {
-      "source": "chooseFolder()",
-      "target": "collectDirectory()",
+      "source": "resetDemo()",
+      "target": "clearReport()",
       "source_files": [
         "src/app.ts",
-        "src/scanner.ts"
+        "src/storage.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "bridges separate communities"
     },
     {
-      "source": "confirmQuarantine()",
-      "target": "quarantineFolder()",
+      "source": "startForReal()",
+      "target": "clearReport()",
       "source_files": [
         "src/app.ts",
-        "src/quarantine.ts"
+        "src/storage.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "bridges separate communities"
     },
     {
-      "source": "startScan()",
-      "target": "scanSources()",
+      "source": "applyRoute()",
+      "target": "loadReport()",
       "source_files": [
         "src/app.ts",
-        "src/scanner.ts"
+        "src/storage.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "bridges separate communities"
     },
     {
-      "source": "MutableFolder",
-      "target": "HashedFile",
+      "source": "importReport()",
+      "target": "saveReport()",
       "source_files": [
-        "src/scanner.ts",
-        "src/types.ts"
+        "src/app.ts",
+        "src/storage.ts"
       ],
       "confidence": "EXTRACTED",
-      "relation": "references",
-      "why": "cross-file semantic connection"
+      "relation": "calls",
+      "why": "bridges separate communities"
     }
   ],
   "tokens": {
