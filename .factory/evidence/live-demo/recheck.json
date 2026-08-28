@@ -1,0 +1,27 @@
+{
+  "boxes": {
+    "banner": {
+      "x": 16,
+      "y": 8,
+      "width": 302.453125,
+      "height": 18.890625,
+      "inViewport": true
+    },
+    "reset": {
+      "x": 98.75,
+      "y": 45.78125,
+      "width": 100.015625,
+      "height": 44,
+      "inViewport": true
+    },
+    "exit": {
+      "x": 206.765625,
+      "y": 45.78125,
+      "width": 167.234375,
+      "height": 44,
+      "inViewport": true
+    }
+  },
+  "errors": [],
+  "missing": []
+}
