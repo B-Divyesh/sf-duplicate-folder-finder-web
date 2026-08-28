@@ -24,6 +24,7 @@ test('every registered claim has one unique tagged test', async () => {
     expect(claim.where.trim()).not.toBe('');
     expect(claim.sandbox.trim()).not.toBe('');
     expect(claim.test).toContain(`@claim:${claim.id}`);
+    expect(claim.test).toMatch(/^npm (?:test -- -t|run test:claims -- --grep) @claim:[a-z0-9-]+$/);
     expect(testSource.match(new RegExp(`@claim:${claim.id}(?![a-z0-9-])`, 'g'))).toHaveLength(1);
   }
 });

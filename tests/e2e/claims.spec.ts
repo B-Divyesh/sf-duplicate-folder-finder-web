@@ -2,7 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 
 const demoResult = async (page: Page): Promise<void> => {
   await page.goto('/demo');
-  await expect(page.getByRole('heading', { name: 'These folder trees do not fully match.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'These folders do not fully match.' })).toBeVisible();
 };
 
 test('@claim:comparison-results identifies matching folders and file differences', async ({ page }) => {
@@ -33,7 +33,7 @@ test('@claim:offline-reload reloads and resets the demo without a network', asyn
   await page.waitForFunction(() => navigator.serviceWorker?.controller !== null);
   await context.setOffline(true);
   await page.reload();
-  await expect(page.getByRole('heading', { name: 'These folder trees do not fully match.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'These folders do not fully match.' })).toBeVisible();
   await page.getByRole('button', { name: 'Reset demo' }).click();
   await expect(page.getByText('Demo reset to the original sample comparison.')).toBeVisible();
   await context.setOffline(false);
@@ -78,7 +78,7 @@ test('@claim:demo-isolation resets demo data and preserves the real report', asy
   });
   await expect(page.getByText('Demo — sample data, nothing is saved')).toBeVisible();
   await page.getByRole('button', { name: 'Reset demo' }).click();
-  await page.getByRole('button', { name: 'Start for real' }).click();
+  await page.getByRole('button', { name: 'Compare my folders' }).click();
   await expect(page.getByText('Demo — sample data, nothing is saved')).toBeHidden();
   const stores = await page.evaluate(async () => {
     const read = (name: string) => new Promise<unknown>((resolve, reject) => {
@@ -99,7 +99,7 @@ test('@claim:demo-isolation resets demo data and preserves the real report', asy
 
 test('@claim:local-persistence restores the latest real report after reload', async ({ page }) => {
   await demoResult(page);
-  await page.getByRole('button', { name: 'Start for real' }).click();
+  await page.getByRole('button', { name: 'Compare my folders' }).click();
   const report = {
     schemaVersion: 1,
     createdAt: '2026-08-28T00:00:00.000Z',
@@ -114,7 +114,7 @@ test('@claim:local-persistence restores the latest real report after reload', as
   await expect(page.getByText('Report imported. File actions stay disabled until you re-select and scan the folders.')).toBeVisible();
   await page.reload();
   await expect(page.getByText(/Saved scan/)).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'These folder trees match exactly.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'These folders match exactly.' })).toBeVisible();
 });
 
 test('@claim:quarantine-verification keeps an original when the copied content does not match', async ({ page }) => {
@@ -167,7 +167,7 @@ test('@claim:quarantine-verification keeps an original when the copied content d
     Object.assign(window, { __mirrorbyteState: state, showDirectoryPicker: async () => picks.shift() });
   });
   await demoResult(page);
-  await page.getByRole('button', { name: 'Start for real' }).click();
+  await page.getByRole('button', { name: 'Compare my folders' }).click();
   await page.getByRole('button', { name: 'Choose folder A', exact: true }).click();
   await page.getByRole('button', { name: 'Choose folder B', exact: true }).click();
   await page.getByRole('button', { name: 'Compare these folders' }).click();

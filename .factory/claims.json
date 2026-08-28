@@ -10,7 +10,7 @@
     "id": "single-folder-duplicates",
     "claim": "Choosing Folder A alone finds exact duplicate subfolders inside that folder.",
     "where": "folder chooser, README",
-    "test": "npm test -- --grep @claim:single-folder-duplicates",
+    "test": "npm test -- -t @claim:single-folder-duplicates",
     "sandbox": "synthetic local folder snapshot with two independent matching subfolders; assert one duplicate pair and no ancestor pair"
   },
   {

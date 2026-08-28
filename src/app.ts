@@ -146,7 +146,7 @@ function setScanning(scanning: boolean): void {
 }
 
 function updateProgress(progress: ScanProgress): void {
-  const labels = { discovering: 'Discovering files', hashing: 'Hashing file contents', comparing: 'Comparing folder trees' };
+  const labels = { discovering: 'Discovering files', hashing: 'Hashing file contents', comparing: 'Comparing folders' };
   const percent = progress.total === 0 ? 100 : Math.round((progress.done / progress.total) * 100);
   byId('progress-label').textContent = labels[progress.phase];
   byId('progress-count').textContent = `${progress.done.toLocaleString()} / ${progress.total.toLocaleString()}`;
@@ -191,11 +191,11 @@ function renderReport(report: ScanReport, restored = false): void {
 
 function verdictFor(report: ScanReport): { tone: string; icon: string; label: string; title: string; copy: string } {
   switch (report.relation) {
-    case 'identical': return { tone: '', icon: '✓', label: 'IDENTICAL', title: 'These folder trees match exactly.', copy: 'Names, paths, sizes, and SHA-256 content hashes all agree.' };
+    case 'identical': return { tone: '', icon: '✓', label: 'IDENTICAL', title: 'These folders match exactly.', copy: 'Names, paths, sizes, and SHA-256 content hashes all agree.' };
     case 'a-contained': return { tone: 'warning', icon: '⊂', label: 'A IS CONTAINED IN B', title: 'Everything in A is present in B.', copy: 'B has additional items. Review them before treating B as a clean backup.' };
     case 'b-contained': return { tone: 'warning', icon: '⊃', label: 'B IS CONTAINED IN A', title: 'Everything in B is present in A.', copy: 'A has additional items. B is not a complete copy of A.' };
     case 'single-root': return { tone: report.duplicates.length ? 'warning' : '', icon: report.duplicates.length ? '≡' : '✓', label: 'ONE-ROOT SCAN', title: report.duplicates.length ? 'Exact duplicate folders were found.' : 'No duplicate folders were found.', copy: 'Only non-nested folders with matching full structures and content are paired.' };
-    default: return { tone: 'danger', icon: '≠', label: 'DIFFERENT', title: 'These folder trees do not fully match.', copy: 'Review items present on one side or changed at the same path.' };
+    default: return { tone: 'danger', icon: '≠', label: 'DIFFERENT', title: 'These folders do not fully match.', copy: 'Review items present on one side or changed at the same path.' };
   }
 }
 

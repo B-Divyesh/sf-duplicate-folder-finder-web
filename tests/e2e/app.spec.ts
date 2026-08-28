@@ -8,8 +8,8 @@ test('one-click sample enters the isolated demo and can return to real mode', as
   await page.getByRole('link', { name: 'Try it with sample data' }).first().click();
   await expect(page).toHaveURL(/\?demo=1$/);
   await expect(page.getByText('Demo — sample data, nothing is saved')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'These folder trees do not fully match.' })).toBeVisible();
-  await page.getByRole('button', { name: 'Start for real' }).click();
+  await expect(page.getByRole('heading', { name: 'These folders do not fully match.' })).toBeVisible();
+  await page.getByRole('button', { name: 'Compare my folders' }).click();
   await expect(page).toHaveURL('/');
   await expect(page.getByText('Demo — sample data, nothing is saved')).toBeHidden();
   expect(errors).toEqual([]);
@@ -52,6 +52,9 @@ test('unknown URLs return the designed 404 with a working recovery link', async 
   const response = await page.goto('/not-a-real-route');
   expect(response?.status()).toBe(404);
   await expect(page).toHaveTitle('Page not found — Mirrorbyte');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://duplicate-folder-finder-web.sociobot.in/404');
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /1200x630/);
+  await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
   await expect(page.getByRole('heading', { name: 'This folder path ends here.' })).toBeVisible();
   await page.getByRole('link', { name: 'Return to folder comparison' }).click();
   await expect(page).toHaveURL('/');
@@ -65,7 +68,7 @@ test('app shell and direct demo route work offline after installation', async ({
   await context.setOffline(true);
   await page.reload();
   await expect(page.getByRole('heading', { name: /Inspect sample folders/ })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'These folder trees do not fully match.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'These folders do not fully match.' })).toBeVisible();
   await page.evaluate(() => window.dispatchEvent(new Event('offline')));
   await expect(page.getByText('You are offline')).toBeVisible();
   await context.setOffline(false);
@@ -92,4 +95,35 @@ test('keyboard skip link and demo reset controls remain operable', async ({ page
   await page.getByRole('button', { name: 'Reset demo' }).focus();
   await page.keyboard.press('Enter');
   await expect(page.getByText('Demo reset to the original sample comparison.')).toBeVisible();
+});
+
+test('390px demo banner and controls remain visible after the sample result scrolls into view', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Try it with sample data' }).first().click();
+  await expect(page.getByRole('heading', { name: 'These folders do not fully match.' })).toBeVisible();
+  await page.waitForTimeout(300);
+  for (const control of [
+    page.getByText('Demo — sample data, nothing is saved'),
+    page.getByRole('button', { name: 'Reset demo' }),
+    page.getByRole('button', { name: 'Compare my folders' }),
+  ]) {
+    const box = await control.boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.y).toBeGreaterThanOrEqual(0);
+    expect(box!.y + box!.height).toBeLessThanOrEqual(844);
+  }
+});
+
+test('390px visible navigation and footer links have 44px touch targets', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const route of ['/', '/demo', '/privacy/', '/terms/', '/not-a-real-route']) {
+    await page.goto(route);
+    for (const link of await page.locator('header a:visible, footer a:visible').all()) {
+      const box = await link.boundingBox();
+      expect(box, `${route} has a visible link without a box`).not.toBeNull();
+      expect(box!.width, `${route} link ${await link.innerText()} is too narrow`).toBeGreaterThanOrEqual(44);
+      expect(box!.height, `${route} link ${await link.innerText()} is too short`).toBeGreaterThanOrEqual(44);
+    }
+  }
 });

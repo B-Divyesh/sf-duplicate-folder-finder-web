@@ -9,8 +9,9 @@
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
     "test:claims": "npm run build && playwright test tests/e2e/claims.spec.ts --project=chromium",
+    "test:claims:contract": "node scripts/run-claim-contract.mjs",
     "test:e2e": "playwright test",
-    "check": "npm test && npm run build"
+    "check": "npm test && npm run build && npm run test:claims:contract && npm run test:e2e"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",

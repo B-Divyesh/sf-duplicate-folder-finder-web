@@ -1,1 +1,1 @@
-Compare folders in your browser and find exact duplicates without uploading files.
+Compare folders in your browser to find exact duplicates without uploading files.

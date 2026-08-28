@@ -16,9 +16,9 @@ Demo: <https://duplicate-folder-finder-web.sociobot.in/?demo=1>
 
 Folder names, contents, and hashes stay in the browser. There is no account, analytics, tracking, or third-party request.
 
-Demo data uses separate storage. Reset restores the shipped sample. Starting for real removes the demo report.
+Demo data uses separate storage. Reset restores the shipped sample. Compare my folders removes the demo report.
 
-On supported Chromium browsers, Mirrorbyte can quarantine a reviewed duplicate. It verifies the copy before removing the original.
+In Chrome or Edge, Mirrorbyte can move a reviewed copy into a holding folder. It checks the copy before removing the original.
 
 Browser and operating-system failures remain possible. Keep a separate backup before moving valuable data.
 

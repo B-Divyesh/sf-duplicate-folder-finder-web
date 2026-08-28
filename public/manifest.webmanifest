@@ -2,7 +2,7 @@
   "id": "/",
   "name": "Mirrorbyte — Duplicate Folder Finder",
   "short_name": "Mirrorbyte",
-  "description": "Compare folder trees and find exact duplicate folders locally.",
+  "description": "Compare folders and find exact duplicate folders on this device.",
   "start_url": "/?source=pwa&v=1",
   "scope": "/",
   "display": "standalone",

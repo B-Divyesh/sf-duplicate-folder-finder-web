@@ -31,12 +31,12 @@ a:hover { text-decoration-thickness: 2px; }
 .skip-link:focus { top: 8px; }
 
 .site-header { min-height: 72px; display: grid; grid-template-columns: 1fr auto auto; gap: 24px; align-items: center; max-width: 1180px; padding: 0 24px; margin: auto; border-bottom: 1px solid #274044; }
-.brand { display: inline-flex; align-items: center; gap: 12px; font: 700 15px/1 var(--mono); letter-spacing: .12em; color: var(--paper); text-decoration: none; }
+.brand { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; gap: 12px; font: 700 15px/1 var(--mono); letter-spacing: .12em; color: var(--paper); text-decoration: none; }
 .brand-mark { width: 25px; height: 25px; display: grid; grid-template: repeat(2, 8px) / repeat(2, 8px); gap: 3px; transform: rotate(45deg); }
 .brand-mark i { background: var(--cyan); }
 .brand-mark i:nth-child(2), .brand-mark i:nth-child(3) { background: var(--amber); }
 .site-nav { display: flex; align-items: center; gap: 22px; font: 700 13px/1 var(--mono); }
-.site-nav a { min-height: 44px; display: inline-flex; align-items: center; color: var(--paper); text-decoration-color: #547276; }
+.site-nav a { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; color: var(--paper); text-decoration-color: #547276; }
 .network-chip { min-height: 32px; display: inline-flex; align-items: center; gap: 7px; padding: 0 10px; border: 1px solid #2c484b; font: 700 12px/1 var(--mono); text-transform: uppercase; letter-spacing: .07em; }
 .network-chip { color: var(--mist); }
 .network-chip.offline { color: var(--amber); border-color: var(--amber); }
@@ -141,7 +141,8 @@ h1 span { color: var(--cyan); }
 .how-it-works li p { margin: 4px 0 0; color: var(--mist); }
 footer { max-width: 1180px; min-height: 150px; padding: 32px 24px calc(32px + env(safe-area-inset-bottom)); margin: auto; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: start; border-top: 1px solid #294448; color: var(--mist); font-size: 14px; }
 footer p { margin: 10px 0 0; }
-footer nav { display: flex; gap: 24px; }
+footer nav { display: flex; gap: 12px; }
+footer nav a { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
 .brand.small { font-size: 12px; }
 .brand.small .brand-mark { transform: rotate(45deg) scale(.7); margin: -4px; }
 .generation-note { grid-column: 1 / -1; font: 12px/1.4 var(--mono); }
@@ -175,7 +176,7 @@ dialog ul { max-height: 200px; overflow: auto; padding-left: 24px; font-family: 
   .site-nav a:first-child { display: none; }
   .network-chip { display: none; }
   .network-chip.offline { display: inline-flex; position: fixed; z-index: 18; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); background: #28200e; }
-  .demo-banner { position: relative; align-items: flex-start; flex-wrap: wrap; justify-content: flex-start; gap: 0 12px; }
+  .demo-banner { position: sticky; align-items: flex-start; flex-wrap: wrap; justify-content: flex-start; gap: 0 12px; }
   .demo-banner > div { margin-left: auto; }
   .hero { min-height: 610px; display: block; padding: 30px 16px 125px; }
   .hero::before { inset-inline: 16px; }
