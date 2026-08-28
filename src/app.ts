@@ -437,6 +437,7 @@ async function applyRoute(moveFocus: boolean): Promise<void> {
   const nextDemoMode = isDemoUrl(new URL(location.href));
   const modeChanged = nextDemoMode !== demoMode;
   demoMode = nextDemoMode;
+  document.documentElement.classList.toggle('demo-boot', demoMode);
   byId('demo-banner').hidden = !demoMode;
   updateRouteMetadata(demoMode);
   const heading = byId<HTMLHeadingElement>('hero-title');
