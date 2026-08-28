@@ -1,70 +1,44 @@
-# Handoff — perfection loop round 1
+# Review 2 handoff
 
 Date: 2026-08-28
 
-Work order: `duplicate-folder-finder-web-polish-1`
+Work order: `duplicate-folder-finder-web-review-2`
 
-Review base: `e0035432cadede328bef2ca0a8309d8e6f8103a5`
+Role: reviewer
 
-Repair commits: `e9912c3`, `4dab0cb`, `301fe88`
+Reviewed commit: `fdd83fe38613eb7556fdbcd7385d7fea2eeba7ec`
 
-Live URL: <https://duplicate-folder-finder-web.sociobot.in/>
+## What was done
 
-## Result
+- Performed cold first-read checks on the live site at 390×844 and 1440×900.
+- Exercised the one-click demo, reset/exit behavior, separate IndexedDB storage, same-origin-only network behavior, and offline reload/reset.
+- Ran every command declared in `.factory/claims.json` from a clean clone.
+- Crawled routes, assets, and links; checked metadata, history/focus behavior, the designed 404, console output, mobile touch targets, and visual identity.
+- Ran the factory URL verifier and Axe against the live routes.
+- Audited every landing/demo and README sentence for word count and reviewed headings, controls, jargon, and terminology.
+- Wrote `.factory/review-2.md`. Product code was not changed.
 
-All four BLOCKING findings in `.factory/review-1.md` are resolved. No known blocking finding remains.
+## Verdict
 
-- B1: `/demo`, `/demo/`, and `/?demo=1` load a completed sample comparison. The persistent banner provides **Reset demo** and **Start for real**. Demo and real reports use separate IndexedDB databases. Leaving demo deletes its report.
-- B2: `.factory/claims.json` registers eight visitor-relevant claims. A contract test enforces unique test tags. Seven browser claims and one scanner claim pass as their exact listed commands.
-- B3: the first screen now says “Compare folders and find exact duplicates.” The sample action and its outcome are visible at 390×844 without scrolling.
-- B4: `/demo` has its own title and h1. App navigation uses history, focuses and announces the route h1, and restores through Back. Unknown paths return the designed Mirrorbyte 404 with a recovery link.
+FAIL. The two blocking findings are:
 
-The review’s other findings are also resolved: route-specific metadata, Open Graph and Twitter tags, a 1200×630 product image, Apple touch icon, shared navigation/footer, legal links, sitemap entry, plain-language labels, mobile offline status, and copy audit.
+1. `npm test -- --grep @claim:single-folder-duplicates` fails because Vitest does not support `--grep`.
+2. At 390 px, the demo auto-scrolls to results while the banner is non-sticky, leaving the sandbox notice and reset/exit controls off-screen.
 
-## Verification evidence
+The report also records an unlisted `Free to use` claim, undersized mobile touch targets, missing 404 social/canonical metadata, and four copy/terminology issues.
 
-Verification ran from a clean clone at commit `4dab0cb` after `npm ci`:
+## Verification summary
 
-- Every command in `.factory/claims.json`: **8/8 passed individually**.
-- `npm test`: **10/10 passed** across scanner, claims-contract, and deployment-contract suites.
-- `npm run build`: passed; `dist/index.html`, `dist/404.html`, legal pages, manifest, and service worker produced.
-- `npm run test:e2e -- --workers=1`: **28/28 passed** across desktop Chromium and Pixel 5.
-- Axe checks on `/`, `/demo`, `/privacy/`, and `/terms/`: **0 serious or critical violations** in both browser projects.
-- Browser coverage includes keyboard skip navigation, route focus, history, 390px overflow, demo isolation, downloads, privacy request capture, quarantine hash failure, 404 recovery, and offline reload/reset.
-- Production app JavaScript: **23.94 kB raw / 8.89 kB gzip**. CSS: **15.66 kB raw / 4.36 kB gzip**.
-- Local Lighthouse mobile: **100 performance / 100 accessibility**, LCP **1.7 s**, CLS **0**, TBT **0 ms**.
-- Factory URL verifier: title, `lang=en`, one h1, main landmark, image alt, button names, and **0 console errors**.
+- `npm ci`: passed in a clean clone.
+- Exact claim commands: 7 passed, 1 blocking failure.
+- Corrected single-folder filter (`npm test -- -t @claim:single-folder-duplicates`): passed.
+- `npm test`: 10/10 passed.
+- `npm run build`: passed; `dist/` produced; app JS 8.89 kB gzip.
+- `npm run test:e2e`: 28/28 passed.
+- Live factory URL verification: passed with no console errors.
+- Live Axe checks: no serious or critical violations on `/`, `/demo`, `/privacy/`, `/terms/`, or the designed 404.
+- Live link crawl: no dead links found.
 
-The final route-normalization change in `301fe88` passed `npm test`, `npm run build`, and direct parity checks for both `/demo` and `/demo/`.
+## Next steps
 
-## Deployment evidence
-
-- Pushed `main` through `301fe88` before deployment.
-- Deployed `dist/` with `/opt/fleet/lib/deploy-static.sh duplicate-folder-finder-web dist`.
-- Azure Static Web Apps deployment ID: `b5be7671-813b-4e79-819c-af067f54aa09`; status: **Succeeded**.
-- Live routes: `/`, `/demo`, `/demo/`, `/privacy/`, `/terms/`, Apple icon, and social image return **200**. `/not-a-real-route` returns the branded **404**.
-- Live `/` title: `Mirrorbyte — Compare folders and find duplicates`; live `/demo` title: `Demo — Mirrorbyte`.
-- Live URL verifier found **0 console errors** on `/` and `/demo`.
-- Live Lighthouse mobile: **100 performance / 100 accessibility**, LCP **1.2 s**, CLS **0**, TBT **50 ms**.
-- Live offline smoke test reloaded `/demo` with its sample h1 and recorded **0 third-party requests** across 25 requests.
-- Live HTML revalidates. Fingerprinted app assets use one-year immutable caching. CSP, frame denial, nosniff, referrer policy, Permissions-Policy, and HSTS are present.
-
-## Run and verify
-
-```sh
-npm ci
-npm test
-npm run build
-npm run test:claims
-npm run test:e2e -- --workers=1
-```
-
-The demo contract is in `.factory/demo.md`. The copy inventory is in `.factory/copy-audit.md`. The one-line catalog description is in `.factory/catalog-description.txt`.
-
-## Known constraints
-
-- Writable quarantine depends on Chromium’s File System Access API. Read-only folder selection remains available elsewhere.
-- Browsers do not expose empty folders through the read-only file-input fallback.
-- Web Crypto hashes each large file as one buffer because it has no incremental SHA-256 interface.
-
-These are platform constraints, not unresolved review blockers.
+Fix B1 and B2 first, add regression tests for both, then address the non-blocking findings in severity order and rerun the exact claims manifest commands from a clean clone.
