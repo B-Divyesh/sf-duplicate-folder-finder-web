@@ -60,6 +60,16 @@ test('unknown URLs return the designed 404 with a working recovery link', async 
   await expect(page).toHaveURL('/');
 });
 
+test('a service-worker-controlled unknown URL still returns the designed 404 status', async ({ page }) => {
+  await page.goto('/');
+  await page.waitForFunction(() => navigator.serviceWorker?.ready);
+  await page.reload();
+  await page.waitForFunction(() => navigator.serviceWorker?.controller !== null);
+  const response = await page.goto('/controlled-not-found');
+  expect(response?.status()).toBe(404);
+  await expect(page.getByRole('heading', { name: 'This folder path ends here.' })).toBeVisible();
+});
+
 test('app shell and direct demo route work offline after installation', async ({ page, context }) => {
   await page.goto('/demo');
   await page.waitForFunction(() => navigator.serviceWorker?.ready);
@@ -92,9 +102,36 @@ test('keyboard skip link and demo reset controls remain operable', async ({ page
   await expect(page.getByRole('link', { name: 'Skip to folder comparison' })).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page.locator('#main')).toBeFocused();
-  await page.getByRole('button', { name: 'Reset demo' }).focus();
+  const reset = page.getByRole('button', { name: 'Reset demo' });
+  await expect(page.getByRole('heading', { name: 'These folders do not fully match.' })).toBeVisible();
+  await expect(reset).toBeEnabled();
+  await reset.focus();
   await page.keyboard.press('Enter');
   await expect(page.getByText('Demo reset to the original sample comparison.')).toBeVisible();
+});
+
+test('demo controls cannot run while the sample is still scanning', async ({ page }) => {
+  await page.addInitScript(() => {
+    const NativeWorker = window.Worker;
+    class DelayedWorker extends NativeWorker {
+      postMessage(message: any, options?: StructuredSerializeOptions | Transferable[]): void {
+        window.setTimeout(() => {
+          if (Array.isArray(options)) super.postMessage(message, options);
+          else super.postMessage(message, options);
+        }, 350);
+      }
+    }
+    Object.defineProperty(window, 'Worker', { configurable: true, value: DelayedWorker });
+  });
+  await page.goto('/demo');
+  const reset = page.getByRole('button', { name: 'Reset demo' });
+  const leave = page.getByRole('button', { name: 'Compare my folders' });
+  await expect(reset).toBeDisabled();
+  await expect(leave).toBeDisabled();
+  await expect(page.getByText('Demo reset to the original sample comparison.')).toBeHidden();
+  await expect(page.getByRole('heading', { name: 'These folders do not fully match.' })).toBeVisible();
+  await expect(reset).toBeEnabled();
+  await expect(leave).toBeEnabled();
 });
 
 test('390px demo banner and controls remain visible after the sample result scrolls into view', async ({ page }) => {
@@ -113,6 +150,47 @@ test('390px demo banner and controls remain visible after the sample result scro
     expect(box!.y).toBeGreaterThanOrEqual(0);
     expect(box!.y + box!.height).toBeLessThanOrEqual(844);
   }
+  const banner = await page.locator('#demo-banner').boundingBox();
+  expect(banner).not.toBeNull();
+  for (const resultPart of [page.getByRole('heading', { name: 'Comparison result' }), page.getByRole('heading', { name: 'These folders do not fully match.' })]) {
+    const box = await resultPart.boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.y).toBeGreaterThanOrEqual(banner!.y + banner!.height);
+    expect(box!.y + box!.height).toBeLessThanOrEqual(844);
+  }
+});
+
+test('legal routes and Back place focus on their route heading', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Privacy', exact: true }).first().click();
+  await expect(page).toHaveURL('/privacy/');
+  await expect(page.getByRole('heading', { name: 'Privacy without fine print.' })).toBeFocused();
+  await page.getByRole('link', { name: 'Terms', exact: true }).click();
+  await expect(page).toHaveURL('/terms/');
+  await expect(page.getByRole('heading', { name: 'Review before you remove.' })).toBeFocused();
+  await page.goBack();
+  await expect(page).toHaveURL('/privacy/');
+  await expect(page.getByRole('heading', { name: 'Privacy without fine print.' })).toBeFocused();
+  await page.goBack();
+  await expect(page).toHaveURL('/');
+  await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
+});
+
+test('single-folder results and holding-folder review avoid implementation jargon', async ({ page }) => {
+  await page.goto('/');
+  const report = {
+    schemaVersion: 1,
+    createdAt: '2026-08-28T00:00:00.000Z',
+    mode: 'single-root',
+    roots: [{ side: 'A', name: 'Archive', fileCount: 1, folderCount: 0, bytes: 4, hash: 'same' }],
+    relation: 'single-root', differences: { onlyA: [], onlyB: [], changed: [] }, duplicates: [], errors: [],
+  };
+  await page.locator('#import-input').setInputFiles({ name: 'single-folder-report.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(report)) });
+  await expect(page.getByText('ONE-FOLDER SCAN', { exact: true })).toBeVisible();
+  await expect(page.locator('main')).not.toContainText(/ONE-ROOT|one-root|SHA-256|quarantine|folder tree/i);
+  await page.evaluate(() => (document.getElementById('quarantine-dialog') as HTMLDialogElement).showModal());
+  await expect(page.getByRole('dialog')).toContainText('Move the reviewed copies to a holding folder?');
+  await expect(page.getByRole('dialog')).not.toContainText(/SHA-256|quarantine/i);
 });
 
 test('390px visible navigation and footer links have 44px touch targets', async ({ page }) => {

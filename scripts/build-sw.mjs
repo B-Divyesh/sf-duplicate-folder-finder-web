@@ -25,10 +25,12 @@ self.addEventListener('fetch', event => {
     event.respondWith((async () => {
       const local = new URL(event.request.url);
       const known = { '/': '/', '/demo': '/index.html', '/demo/': '/index.html', '/privacy': '/privacy/index.html', '/privacy/': '/privacy/index.html', '/terms': '/terms/index.html', '/terms/': '/terms/index.html' };
+      const isKnownRoute = Object.hasOwn(known, local.pathname);
       const shell = known[local.pathname] || '/404.html';
       const cached = await caches.match(event.request, { ignoreSearch: true }) || await caches.match(shell);
       if (cached) {
         event.waitUntil(fetch(event.request).then(response => caches.open(CACHE).then(cache => cache.put(event.request, response))).catch(() => undefined));
+        if (!isKnownRoute) return new Response(cached.body, { status: 404, statusText: 'Not Found', headers: cached.headers });
         return cached;
       }
       return fetch(event.request).catch(() => caches.match('/offline.html'));

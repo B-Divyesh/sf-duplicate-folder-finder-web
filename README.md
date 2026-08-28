@@ -12,7 +12,7 @@ Demo: <https://duplicate-folder-finder-web.sociobot.in/?demo=1>
 - Finds exact duplicate subfolders and lists changed or one-sided files.
 - Exports the comparison report as JSON or CSV.
 - Stores the latest real report in the browser and restores it after refresh.
-- Works offline after the first visit.
+- Works offline after the first visit, including the demo and legal pages.
 
 Folder names, contents, and hashes stay in the browser. There is no account, analytics, tracking, or third-party request.
 
@@ -20,9 +20,9 @@ Demo data uses separate storage. Reset restores the shipped sample. Compare my f
 
 In Chrome or Edge, Mirrorbyte can move a reviewed copy into a holding folder. It checks the copy before removing the original.
 
-Browser and operating-system failures remain possible. Keep a separate backup before moving valuable data.
+Move a held folder back to restore it. Mirrorbyte does not delete files from the holding folder.
 
-Every product promise is registered in [.factory/claims.json](.factory/claims.json). Each entry names its exact automated test and sandbox evidence.
+Browser and operating-system failures remain possible. Keep a separate backup before moving valuable data.
 
 ## Run locally
 
@@ -40,13 +40,11 @@ Open the printed localhost URL.
 ```sh
 npm test
 npm run build
-npm run test:claims
+npm run test:claims:contract
 npm run test:e2e
 ```
 
-Playwright 1.58.2 matches the browser bundle supplied by the factory worker.
-
-The production build writes `dist/index.html`. The service worker precaches the app, demo, legal pages, and designed 404 response.
+The production build writes `dist/index.html`. The demo, legal pages, and designed not-found page reload after the first online visit.
 
 Use the local parity server to verify deployment headers and routes:
 
@@ -63,5 +61,6 @@ Deploy the static `dist/` directory. Azure Static Web Apps reads `staticwebapp.c
 - Opportunity brief: [.factory/brief.json](.factory/brief.json)
 - Visual system and asset provenance: [.factory/design.md](.factory/design.md)
 - Demo contract: [.factory/demo.md](.factory/demo.md)
+- Checked product claims: [.factory/claims.json](.factory/claims.json)
 - Verification handoff: [.factory/handoff.md](.factory/handoff.md)
 - License: [MIT](LICENSE)

@@ -36,6 +36,13 @@ test('@claim:offline-reload reloads and resets the demo without a network', asyn
   await expect(page.getByRole('heading', { name: 'These folders do not fully match.' })).toBeVisible();
   await page.getByRole('button', { name: 'Reset demo' }).click();
   await expect(page.getByText('Demo reset to the original sample comparison.')).toBeVisible();
+  await page.goto('/privacy/');
+  await expect(page.getByRole('heading', { name: 'Privacy without fine print.' })).toBeVisible();
+  await page.goto('/terms/');
+  await expect(page.getByRole('heading', { name: 'Review before you remove.' })).toBeVisible();
+  const response = await page.goto('/offline-not-found');
+  expect(response?.status()).toBe(404);
+  await expect(page.getByRole('heading', { name: 'This folder path ends here.' })).toBeVisible();
   await context.setOffline(false);
 });
 
@@ -171,11 +178,121 @@ test('@claim:quarantine-verification keeps an original when the copied content d
   await page.getByRole('button', { name: 'Choose folder A', exact: true }).click();
   await page.getByRole('button', { name: 'Choose folder B', exact: true }).click();
   await page.getByRole('button', { name: 'Compare these folders' }).click();
-  await page.getByRole('checkbox', { name: /Select copy/ }).check();
-  await page.getByRole('button', { name: 'Review quarantine' }).click();
+  await page.waitForFunction(() => document.getElementById('scan-progress')?.hidden && !(document.getElementById('scan-button') as HTMLButtonElement).disabled);
+  const copy = page.getByRole('checkbox', { name: /Select copy/ });
+  await expect(copy).toBeEnabled();
+  await copy.check();
+  await page.getByRole('button', { name: 'Review holding folder' }).click();
+  await expect(page.getByRole('dialog')).toContainText('Move the reviewed copies to a holding folder?');
+  await expect(page.getByRole('dialog')).not.toContainText(/SHA-256|quarantine/i);
   await page.getByRole('button', { name: 'Copy, verify & move' }).click();
   await expect(page.getByRole('alert')).toContainText('Verification failed. The original was left in place');
   const state = await page.evaluate(() => (window as unknown as { __mirrorbyteState: { removed: boolean; writes: number } }).__mirrorbyteState);
   expect(state.writes).toBeGreaterThan(0);
   expect(state.removed).toBe(false);
+});
+
+const installVerifiedMoveFolders = async (page: Page): Promise<void> => {
+  await page.addInitScript(() => {
+    const state = { removals: [] as Array<{ parent: string; name: string }>, roots: [] as unknown[] };
+    class MemoryFileHandle {
+      kind = 'file' as const;
+      constructor(public name: string, public content: string) {}
+      async getFile() { return new File([this.content], this.name, { lastModified: 1 }); }
+      async createWritable() {
+        return {
+          write: async (blob: Blob) => { this.content = await blob.text(); },
+          close: async () => undefined,
+          abort: async () => undefined,
+        };
+      }
+    }
+    class MemoryDirectoryHandle {
+      kind = 'directory' as const;
+      children = new Map<string, MemoryDirectoryHandle | MemoryFileHandle>();
+      constructor(public name: string) {}
+      async *entries() { for (const entry of this.children) yield entry; }
+      async getDirectoryHandle(name: string, options?: { create?: boolean }) {
+        const found = this.children.get(name);
+        if (found instanceof MemoryDirectoryHandle) return found;
+        if (!options?.create) throw new DOMException('Missing folder', 'NotFoundError');
+        const created = new MemoryDirectoryHandle(name);
+        this.children.set(name, created);
+        return created;
+      }
+      async getFileHandle(name: string, options?: { create?: boolean }) {
+        const found = this.children.get(name);
+        if (found instanceof MemoryFileHandle) return found;
+        if (!options?.create) throw new DOMException('Missing file', 'NotFoundError');
+        const created = new MemoryFileHandle(name, '');
+        this.children.set(name, created);
+        return created;
+      }
+      async removeEntry(name: string) { state.removals.push({ parent: this.name, name }); this.children.delete(name); }
+      async requestPermission() { return 'granted'; }
+    }
+    const makeRoot = (name: string, folder: string) => {
+      const root = new MemoryDirectoryHandle(name);
+      const child = new MemoryDirectoryHandle(folder);
+      child.children.set('same.txt', new MemoryFileHandle('same.txt', 'matching-content'));
+      root.children.set(folder, child);
+      return root;
+    };
+    const roots = [makeRoot('Folder A', 'copy'), makeRoot('Folder B', 'archive')];
+    state.roots = roots;
+    const picks = [...roots];
+    Object.assign(window, { __mirrorbyteVerifiedMoveState: state, showDirectoryPicker: async () => picks.shift() });
+  });
+};
+
+const completeVerifiedHoldingMove = async (page: Page): Promise<void> => {
+  await demoResult(page);
+  await page.getByRole('button', { name: 'Compare my folders' }).click();
+  await page.getByRole('button', { name: 'Choose folder A', exact: true }).click();
+  await page.getByRole('button', { name: 'Choose folder B', exact: true }).click();
+  await page.getByRole('button', { name: 'Compare these folders' }).click();
+  await page.waitForFunction(() => document.getElementById('scan-progress')?.hidden && !(document.getElementById('scan-button') as HTMLButtonElement).disabled);
+  await page.getByRole('checkbox', { name: /Select copy/ }).check();
+  await page.getByRole('button', { name: 'Review holding folder' }).click();
+  await page.getByRole('button', { name: 'Copy, verify & move' }).click();
+  await expect(page.getByText('Moved 1 folder into the holding folder. Re-scan to refresh results.')).toBeVisible();
+};
+
+test('@claim:holding-folder-restore restores a verified moved folder with its original path and bytes', async ({ page }) => {
+  await installVerifiedMoveFolders(page);
+  await completeVerifiedHoldingMove(page);
+  const restored = await page.evaluate(async () => {
+    const state = (window as unknown as { __mirrorbyteVerifiedMoveState: { roots: Array<{ children: Map<string, { children: Map<string, unknown> }> }> } }).__mirrorbyteVerifiedMoveState;
+    const root = state.roots[0]!;
+    const holdingName = [...root.children.keys()].find((name) => name.startsWith('.mirrorbyte-quarantine-'))!;
+    const holding = root.children.get(holdingName)!;
+    const movedName = [...holding.children.keys()].find((name) => name === 'A-copy')!;
+    const moved = holding.children.get(movedName) as { children: Map<string, unknown> };
+    holding.children.delete(movedName);
+    root.children.set('copy', moved);
+    const copy = root.children.get('copy')!;
+    const same = copy.children.get('same.txt') as { getFile: () => Promise<File> };
+    return { holdingName, restoredPath: `copy/same.txt`, bytes: await (await same.getFile()).text(), heldFolderRemovedByRestore: !holding.children.has('A-copy') };
+  });
+  expect(restored.holdingName).toMatch(/^\.mirrorbyte-quarantine-/);
+  expect(restored.restoredPath).toBe('copy/same.txt');
+  expect(restored.bytes).toBe('matching-content');
+  expect(restored.heldFolderRemovedByRestore).toBe(true);
+});
+
+test('@claim:holding-folder-kept leaves verified copied files in the holding folder', async ({ page }) => {
+  await installVerifiedMoveFolders(page);
+  await completeVerifiedHoldingMove(page);
+  const result = await page.evaluate(async () => {
+    const state = (window as unknown as { __mirrorbyteVerifiedMoveState: { roots: Array<{ children: Map<string, { children: Map<string, unknown> }> }>; removals: Array<{ parent: string; name: string }> } }).__mirrorbyteVerifiedMoveState;
+    const root = state.roots[0]!;
+    const holdingName = [...root.children.keys()].find((name) => name.startsWith('.mirrorbyte-quarantine-'))!;
+    const holding = root.children.get(holdingName)!;
+    const moved = holding.children.get('A-copy') as { children: Map<string, { getFile: () => Promise<File> }> };
+    const file = moved.children.get('same.txt')!;
+    return { heldFolderExists: Boolean(moved), bytes: await (await file.getFile()).text(), removals: state.removals };
+  });
+  expect(result.heldFolderExists).toBe(true);
+  expect(result.bytes).toBe('matching-content');
+  expect(result.removals).toEqual([{ parent: 'Folder A', name: 'copy' }]);
 });

@@ -65,7 +65,7 @@ async function chooseFolder(side: Side): Promise<void> {
     scanButton.disabled = false;
   } catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError') return;
-    setSourceStatus(side, side === 'A' ? 'No folder selected' : 'Optional for a one-root scan', false);
+    setSourceStatus(side, side === 'A' ? 'No folder selected' : 'Optional for a one-folder scan', false);
     showError(`Could not open folder ${side}. ${messageOf(error)} Try the folder-upload fallback in another browser.`);
   }
 }
@@ -186,15 +186,24 @@ function renderReport(report: ScanReport, restored = false): void {
   if (!report.duplicates.length && activeFilter === 'duplicates' && totalDifferences) activeFilter = report.differences.onlyA.length ? 'onlyA' : report.differences.onlyB.length ? 'onlyB' : 'changed';
   document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((tab) => tab.setAttribute('aria-pressed', String(tab.dataset.filter === activeFilter)));
   renderList();
-  if (!restored) resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (!restored) {
+    const protectedTop = demoMode ? (matchMedia('(max-width: 720px)').matches ? 248 : 72) : 16;
+    const top = Math.max(0, resultsSection.getBoundingClientRect().top + window.scrollY - protectedTop);
+    if (demoMode) {
+      const previous = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.scrollTo({ top, behavior: 'auto' });
+      document.documentElement.style.scrollBehavior = previous;
+    } else window.scrollTo({ top, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  }
 }
 
 function verdictFor(report: ScanReport): { tone: string; icon: string; label: string; title: string; copy: string } {
   switch (report.relation) {
-    case 'identical': return { tone: '', icon: '✓', label: 'IDENTICAL', title: 'These folders match exactly.', copy: 'Names, paths, sizes, and SHA-256 content hashes all agree.' };
+    case 'identical': return { tone: '', icon: '✓', label: 'IDENTICAL', title: 'These folders match exactly.', copy: 'Names, paths, sizes, and content hashes all agree.' };
     case 'a-contained': return { tone: 'warning', icon: '⊂', label: 'A IS CONTAINED IN B', title: 'Everything in A is present in B.', copy: 'B has additional items. Review them before treating B as a clean backup.' };
     case 'b-contained': return { tone: 'warning', icon: '⊃', label: 'B IS CONTAINED IN A', title: 'Everything in B is present in A.', copy: 'A has additional items. B is not a complete copy of A.' };
-    case 'single-root': return { tone: report.duplicates.length ? 'warning' : '', icon: report.duplicates.length ? '≡' : '✓', label: 'ONE-ROOT SCAN', title: report.duplicates.length ? 'Exact duplicate folders were found.' : 'No duplicate folders were found.', copy: 'Only non-nested folders with matching full structures and content are paired.' };
+    case 'single-root': return { tone: report.duplicates.length ? 'warning' : '', icon: report.duplicates.length ? '≡' : '✓', label: 'ONE-FOLDER SCAN', title: report.duplicates.length ? 'Exact duplicate folders were found.' : 'No duplicate folders were found.', copy: 'Only non-nested folders with matching full structures and content are paired.' };
     default: return { tone: 'danger', icon: '≠', label: 'DIFFERENT', title: 'These folders do not fully match.', copy: 'Review items present on one side or changed at the same path.' };
   }
 }
@@ -233,9 +242,9 @@ function renderList(): void {
 function duplicateRow(finding: DuplicateFinding): string {
   const hasHandle = Boolean(selected.get(finding.sourceSide)?.handle);
   const selectable = finding.canQuarantine && hasHandle;
-  const reason = !finding.canQuarantine ? 'Root folders are report-only' : !hasHandle ? 'Read-only selection; export this finding' : 'Eligible for quarantine';
+  const reason = !finding.canQuarantine ? 'Selected folders are report-only' : !hasHandle ? 'Read-only selection; export this finding' : 'Can move to a holding folder';
   return `<div class="result-row">
-    ${selectable ? `<input type="checkbox" data-finding="${escapeHtml(finding.id)}" ${selectedFindings.has(finding.id) ? 'checked' : ''} aria-label="Select ${escapeHtml(finding.sourceName)} in folder ${finding.sourceSide} for quarantine">` : '<span aria-hidden="true">◆</span>'}
+    ${selectable ? `<input type="checkbox" data-finding="${escapeHtml(finding.id)}" ${selectedFindings.has(finding.id) ? 'checked' : ''} aria-label="Select ${escapeHtml(finding.sourceName)} in folder ${finding.sourceSide} to move to a holding folder">` : '<span aria-hidden="true">◆</span>'}
     <div><code><span class="side-tag ${finding.sourceSide === 'B' ? 'b' : ''}">${finding.sourceSide}</span>${escapeHtml(finding.sourceName)}</code>
       <span class="row-match">= ${finding.matchSide}:${escapeHtml(finding.matchName)}</span>
       <span class="row-meta">${escapeHtml(reason)}</span></div>
@@ -253,7 +262,7 @@ function openQuarantineDialog(): void {
   if (!activeReport || !selectedFindings.size) return;
   lastFocused = document.activeElement as HTMLElement;
   const findings = activeReport.duplicates.filter((finding) => selectedFindings.has(finding.id));
-  byId('dialog-list').innerHTML = findings.map((finding) => `<li>${finding.sourceSide}: ${escapeHtml(finding.sourceName)} → quarantine</li>`).join('');
+  byId('dialog-list').innerHTML = findings.map((finding) => `<li>${finding.sourceSide}: ${escapeHtml(finding.sourceName)} → holding folder</li>`).join('');
   dialog.showModal();
 }
 
@@ -276,10 +285,10 @@ async function confirmQuarantine(event: Event): Promise<void> {
     dialog.close();
     selectedFindings.clear();
     renderQuarantineBar();
-    showToast(`Moved ${formatCount(moved.length, 'folder')} into ${moved[0] ?? 'quarantine'}. Re-scan to refresh results.`);
+    showToast(`Moved ${formatCount(moved.length, 'folder')} into the holding folder. Re-scan to refresh results.`);
   } catch (error) {
     dialog.close();
-    showError(`Quarantine stopped. ${messageOf(error)}`);
+    showError(`Moving to the holding folder stopped. ${messageOf(error)}`);
   } finally {
     button.disabled = false;
     button.textContent = 'Copy, verify & move';
@@ -474,4 +483,8 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
 }
 
 window.addEventListener('popstate', () => { void applyRoute(true); });
-void applyRoute(false);
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) void applyRoute(true);
+});
+const initialNavigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+void applyRoute(initialNavigation?.type === 'back_forward');

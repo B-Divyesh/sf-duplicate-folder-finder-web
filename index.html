@@ -90,7 +90,7 @@
             <span class="source-letter" aria-hidden="true">B</span>
             <div class="source-copy">
               <h3>Folder B (optional)</h3>
-              <p id="source-b-status">Optional for a one-root scan</p>
+              <p id="source-b-status">Optional for a one-folder scan</p>
             </div>
             <button class="button button-secondary choose-button" id="choose-b" type="button">Choose folder B</button>
             <input class="visually-hidden folder-input" id="input-b" type="file" multiple webkitdirectory aria-label="Choose folder B using browser upload">
@@ -149,7 +149,7 @@
         <div id="result-list" class="result-list" aria-live="polite"></div>
         <div class="quarantine-bar" id="quarantine-bar" hidden>
           <p><strong id="selected-count">0 folders selected</strong><br>Copies will be verified before originals move.</p>
-          <button class="button button-danger" id="quarantine-button" type="button">Review quarantine</button>
+          <button class="button button-danger" id="quarantine-button" type="button">Review holding folder</button>
         </div>
         <div class="inline-message warning" id="scan-warnings" hidden></div>
       </section>
@@ -176,12 +176,12 @@
 
     <dialog id="quarantine-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-copy">
       <form method="dialog">
-        <button class="dialog-close" value="cancel" aria-label="Close quarantine review">×</button>
-        <p class="step-label">REVIEW FOLDER QUARANTINE</p>
-        <h2 id="dialog-title">Move the reviewed copies?</h2>
-        <p id="dialog-copy">Each folder will first be copied and re-hashed inside a timestamped <code>.mirrorbyte-quarantine-…</code> folder. Only verified originals are then removed.</p>
+        <button class="dialog-close" value="cancel" aria-label="Close holding folder review">×</button>
+        <p class="step-label">REVIEW HOLDING FOLDER</p>
+        <h2 id="dialog-title">Move the reviewed copies to a holding folder?</h2>
+        <p id="dialog-copy">Each folder is copied into a dated holding folder. Mirrorbyte checks the copy before removing the original.</p>
         <ul id="dialog-list"></ul>
-        <div class="dialog-note"><strong>Reversible:</strong> restore a folder by moving it back in your operating system. Mirrorbyte never empties quarantine.</div>
+        <div class="dialog-note">To restore a moved folder, move it back from the holding folder in your operating system. Mirrorbyte does not delete files from the holding folder.</div>
         <div class="dialog-actions">
           <button class="button button-secondary" value="cancel">Keep folders</button>
           <button class="button button-danger" id="confirm-quarantine" value="default">Copy, verify & move</button>

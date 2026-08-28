@@ -22,10 +22,10 @@
   },
   {
     "id": "offline-reload",
-    "claim": "Works offline after the first visit.",
-    "where": "first-screen facts, network status, README",
+    "claim": "Works offline after the first visit, including the demo, legal pages, and the designed not-found page.",
+    "where": "first-screen facts, privacy page, README",
     "test": "npm run test:claims -- --grep @claim:offline-reload",
-    "sandbox": "fresh Chromium context at /demo; install the service worker, go offline, reload, and reset the sample comparison"
+    "sandbox": "fresh Chromium context at /demo; install the service worker, go offline, reload and reset the sample, then open Privacy, Terms, and an unknown path"
   },
   {
     "id": "report-exports",
@@ -50,9 +50,23 @@
   },
   {
     "id": "quarantine-verification",
-    "claim": "Mirrorbyte verifies a copied folder before removing its original and leaves the original when verification fails.",
-    "where": "quarantine review, terms page, README",
+    "claim": "Mirrorbyte checks a copied folder before removing its original and leaves the original when verification fails.",
+    "where": "holding-folder review, terms page, README",
     "test": "npm run test:claims -- --grep @claim:quarantine-verification",
     "sandbox": "start at /demo, enter real mode with an in-memory directory picker, corrupt the copied bytes, and assert the original is not removed"
+  },
+  {
+    "id": "holding-folder-restore",
+    "claim": "You can restore a moved folder by moving it from the holding folder back to its original location.",
+    "where": "holding-folder review, terms page",
+    "test": "npm run test:claims -- --grep @claim:holding-folder-restore",
+    "sandbox": "start at /demo, complete a verified in-memory holding-folder move, move the held folder back, and assert its path and bytes are restored"
+  },
+  {
+    "id": "holding-folder-kept",
+    "claim": "Mirrorbyte does not delete files from the holding folder.",
+    "where": "holding-folder review, terms page",
+    "test": "npm run test:claims -- --grep @claim:holding-folder-kept",
+    "sandbox": "start at /demo, complete a verified in-memory holding-folder move, and assert the held folder remains while no holding-folder removal is called"
   }
 ]
