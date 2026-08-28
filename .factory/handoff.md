@@ -1,5 +1,32 @@
 # Handoff — Independent verification PASS
 
+---
+
+# Handoff — Adversarial first-read review 1
+
+Date: 2026-08-28
+Work order: `duplicate-folder-finder-web-review-1`
+
+## Delivered
+
+- Wrote `.factory/review-1.md`; no product source, assets, configuration, or dependencies were modified.
+- Committed review scope is documentation only.
+
+## Verdict
+
+**FAIL.** Confirmed blockers are: missing isolated `/demo` flow and demo documentation, a sample that writes the real IndexedDB report slot, no `.factory/claims.json` or claim tests, no visible first action at 390px before scrolling, and a generic Azure 404 at `/demo`/bad deep links.
+
+## Verification
+
+- Fresh live Chromium inspection at 390×844 and desktop.
+- Exercised `/?demo=1`, the sample scan, same-origin request capture, post-demo persistence on `/`, and an offline service-worker reload.
+- Crawled home/legal/metadata/route URLs and the Source link.
+- Ran `npm ci`, `npm test` (9/9 passed), `npm run build` (passed), and `npx playwright test --workers=1` (8/8 passed after `npx playwright install chromium`).
+
+## Known gaps / next steps
+
+Resolve every blocking review finding in `.factory/review-1.md`, especially a true demo storage namespace and route. Add claims and sandbox tests before representing privacy, offline, export, or quarantine behavior as verified. Re-run this review from a clean browser profile after the fixes.
+
 Date: 2026-08-27
 Work order: `duplicate-folder-finder-web-verify-2`
 Verified candidate: `a0cc8819346a79140516b3aef3663b21a81b15a6`
