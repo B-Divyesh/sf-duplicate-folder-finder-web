@@ -1,57 +1,34 @@
-# Polish round 2 handoff — Mirrorbyte
+# Review 3 handoff — Mirrorbyte
 
 Date: 2026-08-28
-Work order: `duplicate-folder-finder-web-polish-2`
-Repair commit: `082698ec4298617a6df600d5a0d6b659265e154b` (pushed to `origin/main`)
-Deployment: <https://duplicate-folder-finder-web.sociobot.in/>
+
+Work order: `duplicate-folder-finder-web-review-3`
+
+Reviewed commit: `aa833a475c837ebfabab871f7281eedbfee84fed`
 
 ## Delivered
 
-- Fixed every finding in `.factory/review-1.md` and `.factory/review-2.md`; the full mapping is in `.factory/polish-2.md`.
-- Corrected the only failing exact claim command and added `npm run test:claims:contract`, which executes every command in `.factory/claims.json` verbatim.
-- Kept the demo banner sticky at phone widths after result auto-scroll, renamed its exit action to `Compare my folders`, and added mobile regressions for the banner and 44px header/footer link targets.
-- Removed the untested free-use claim; completed 404 canonical/Open Graph/Twitter metadata; made folder/subfolder wording consistent; clarified Chrome/Edge and holding-folder language in the README and Terms.
-- Kept the existing pixel/demoscene Mirrorbyte identity and static PWA artifact class.
+- Wrote `.factory/review-3.md` with a `FAIL` verdict and ten findings.
+- Made no product-code changes.
+- Re-ran every prior review finding against the live site and source.
+- Audited all landing/app and README sentences, headings, actions, jargon, terminology, and claims.
 
-## Exact verification evidence
+## Verification
 
-Fresh clone of the pushed repair (`/tmp/mirrorbyte-clean-5G43cN`):
+- Fresh live 390×844 and 1440×900 first reads: job, audience, and first action are clear.
+- Clean clone: `npm ci` passed; `npm test` passed 10/10; `npm run build` passed and produced `dist/`.
+- Clean clone: `npm run test:claims:contract` passed all eight exact claim commands.
+- Clean clone: `npm run test:e2e` failed 1/32 on the keyboard Reset race; ten isolated repeats passed 9 and failed 1.
+- Live sandbox: sample loaded in one click; Reset worked; real IndexedDB sentinel survived; demo report cleared on exit; all captured requests were same-origin.
+- Live offline: `/demo` reloaded and Reset worked after network interception.
+- Live structure: route metadata, links, designed 404 document, shared shell, and five-route Axe serious/critical scan passed.
+- Live factory verifier: 981 ms load, no console errors, one h1, `lang=en`, main present, no missing alt, no unlabeled button.
 
-```text
-npm ci                                PASS (0 vulnerabilities)
-npm test                              PASS (10 tests)
-npm run build                         PASS (dist/; app JS 8.88 kB gzip)
-npm run test:claims:contract          PASS (8 exact claim commands)
-```
+## Findings left for repair
 
-Working repair tree:
+- Blocking: visitor-facing `root` terminology remains from Review 2 M6.
+- Blocking: `SHA-256` and `quarantine` jargon/term inconsistency remain from Review 1.
+- Blocking: unknown routes return 200 after the service worker controls the page.
+- High/medium: sticky demo banner obscures the verdict; legal-route focus is unmanaged; two holding-folder safety claims and one README offline-scope claim are unlisted; README's completeness statement is false; the keyboard E2E check races demo startup.
 
-```text
-npm run test:e2e                      PASS (32/32 Chromium + mobile tests)
-```
-
-The browser suite includes Axe serious/critical checks, offline demo reload/reset, same-origin network capture, report exports, demo storage isolation, quarantine verification, history/focus, metadata, 404, keyboard, first viewport, sticky banner, and touch target tests.
-
-Live cold `/demo` verification with `/opt/fleet/lib/verify-url.sh`:
-
-```json
-{"loadMs":1052,"errors":[],"a11y":{"title":"Demo — Mirrorbyte","lang":"en","h1":1,"main":true,"imgsMissingAlt":0,"buttonsUnlabeled":0}}
-```
-
-Live mobile browser recheck after one-click sample entry found the banner, `Reset demo`, and `Compare my folders` all inside the 390×844 viewport. Route metadata recheck found no missing canonical/OG/Twitter fields or landmark/title failures. Evidence: `.factory/evidence/live-demo/recheck.json`, `.factory/evidence/live-demo/mobile-sticky.png`, and `.factory/evidence/live-demo/screenshot-mobile.png`.
-
-Live mobile Lighthouse at `/demo`: Performance **94**, Accessibility **100** (`.factory/evidence/live-demo/lighthouse.json`).
-
-## Deploy
-
-Built `dist/` and deployed it with the configured static work-order route:
-
-```text
-/opt/fleet/lib/deploy-static.sh duplicate-folder-finder-web dist
-```
-
-The deployed demo and legal/404 routes were opened cold after deployment. The live response has the configured same-origin CSP, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, referrer policy, and permissions policy.
-
-## Known gaps
-
-None.
+See `.factory/review-3.md` for exact quotes, evidence, rewrites, and required tests.
