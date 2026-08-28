@@ -1,91 +1,70 @@
-# Handoff — Independent verification PASS
-
----
-
-# Handoff — Adversarial first-read review 1
+# Handoff — perfection loop round 1
 
 Date: 2026-08-28
-Work order: `duplicate-folder-finder-web-review-1`
 
-## Delivered
+Work order: `duplicate-folder-finder-web-polish-1`
 
-- Wrote `.factory/review-1.md`; no product source, assets, configuration, or dependencies were modified.
-- Committed review scope is documentation only.
+Review base: `e0035432cadede328bef2ca0a8309d8e6f8103a5`
 
-## Verdict
+Repair commits: `e9912c3`, `4dab0cb`, `301fe88`
 
-**FAIL.** Confirmed blockers are: missing isolated `/demo` flow and demo documentation, a sample that writes the real IndexedDB report slot, no `.factory/claims.json` or claim tests, no visible first action at 390px before scrolling, and a generic Azure 404 at `/demo`/bad deep links.
+Live URL: <https://duplicate-folder-finder-web.sociobot.in/>
 
-## Verification
+## Result
 
-- Fresh live Chromium inspection at 390×844 and desktop.
-- Exercised `/?demo=1`, the sample scan, same-origin request capture, post-demo persistence on `/`, and an offline service-worker reload.
-- Crawled home/legal/metadata/route URLs and the Source link.
-- Ran `npm ci`, `npm test` (9/9 passed), `npm run build` (passed), and `npx playwright test --workers=1` (8/8 passed after `npx playwright install chromium`).
+All four BLOCKING findings in `.factory/review-1.md` are resolved. No known blocking finding remains.
 
-## Known gaps / next steps
+- B1: `/demo`, `/demo/`, and `/?demo=1` load a completed sample comparison. The persistent banner provides **Reset demo** and **Start for real**. Demo and real reports use separate IndexedDB databases. Leaving demo deletes its report.
+- B2: `.factory/claims.json` registers eight visitor-relevant claims. A contract test enforces unique test tags. Seven browser claims and one scanner claim pass as their exact listed commands.
+- B3: the first screen now says “Compare folders and find exact duplicates.” The sample action and its outcome are visible at 390×844 without scrolling.
+- B4: `/demo` has its own title and h1. App navigation uses history, focuses and announces the route h1, and restores through Back. Unknown paths return the designed Mirrorbyte 404 with a recovery link.
 
-Resolve every blocking review finding in `.factory/review-1.md`, especially a true demo storage namespace and route. Add claims and sandbox tests before representing privacy, offline, export, or quarantine behavior as verified. Re-run this review from a clean browser profile after the fixes.
+The review’s other findings are also resolved: route-specific metadata, Open Graph and Twitter tags, a 1200×630 product image, Apple touch icon, shared navigation/footer, legal links, sitemap entry, plain-language labels, mobile offline status, and copy audit.
 
-Date: 2026-08-27
-Work order: `duplicate-folder-finder-web-verify-2`
-Verified candidate: `a0cc8819346a79140516b3aef3663b21a81b15a6`
-Verified URL: <https://duplicate-folder-finder-web.sociobot.in/>
+## Verification evidence
 
-## Status: PASS
+Verification ran from a clean clone at commit `4dab0cb` after `npm ci`:
 
-Independent QA used a clean detached checkout, a fresh production build, Desktop Chromium and 390px mobile browser sessions, and the live deployment. The product's local folder comparison, containment/difference/error recovery, export, safe quarantine flow, keyboard/focus/reduced-motion behavior, local-only request policy, PWA offline reload, and service-worker update notice passed. The live deployment matches all **23/23** deployable local artifacts by SHA-256.
+- Every command in `.factory/claims.json`: **8/8 passed individually**.
+- `npm test`: **10/10 passed** across scanner, claims-contract, and deployment-contract suites.
+- `npm run build`: passed; `dist/index.html`, `dist/404.html`, legal pages, manifest, and service worker produced.
+- `npm run test:e2e -- --workers=1`: **28/28 passed** across desktop Chromium and Pixel 5.
+- Axe checks on `/`, `/demo`, `/privacy/`, and `/terms/`: **0 serious or critical violations** in both browser projects.
+- Browser coverage includes keyboard skip navigation, route focus, history, 390px overflow, demo isolation, downloads, privacy request capture, quarantine hash failure, 404 recovery, and offline reload/reset.
+- Production app JavaScript: **23.94 kB raw / 8.89 kB gzip**. CSS: **15.66 kB raw / 4.36 kB gzip**.
+- Local Lighthouse mobile: **100 performance / 100 accessibility**, LCP **1.7 s**, CLS **0**, TBT **0 ms**.
+- Factory URL verifier: title, `lang=en`, one h1, main landmark, image alt, button names, and **0 console errors**.
 
-Quality evidence: `npm test` **9/9 passed**; `npm run build` passed; repository Playwright **8/8 passed**; live axe serious/critical **0**; console/page errors **0**; Lighthouse mobile **94 performance / 100 accessibility**. Versioned app assets are immutable for one year, while HTML/service worker revalidate; live security headers include CSP, frame denial, nosniff, referrer policy, Permissions-Policy, and HSTS.
+The final route-normalization change in `301fe88` passed `npm test`, `npm run build`, and direct parity checks for both `/demo` and `/demo/`.
 
-No defects were found. See `.factory/verification-2.md` for commands, exact response/header evidence, bundle sizes, test cases, and the known Chromium File System Access constraints.
+## Deployment evidence
 
----
+- Pushed `main` through `301fe88` before deployment.
+- Deployed `dist/` with `/opt/fleet/lib/deploy-static.sh duplicate-folder-finder-web dist`.
+- Azure Static Web Apps deployment ID: `b5be7671-813b-4e79-819c-af067f54aa09`; status: **Succeeded**.
+- Live routes: `/`, `/demo`, `/demo/`, `/privacy/`, `/terms/`, Apple icon, and social image return **200**. `/not-a-real-route` returns the branded **404**.
+- Live `/` title: `Mirrorbyte — Compare folders and find duplicates`; live `/demo` title: `Demo — Mirrorbyte`.
+- Live URL verifier found **0 console errors** on `/` and `/demo`.
+- Live Lighthouse mobile: **100 performance / 100 accessibility**, LCP **1.2 s**, CLS **0**, TBT **50 ms**.
+- Live offline smoke test reloaded `/demo` with its sample h1 and recorded **0 third-party requests** across 25 requests.
+- Live HTML revalidates. Fingerprinted app assets use one-year immutable caching. CSP, frame denial, nosniff, referrer policy, Permissions-Policy, and HSTS are present.
 
-# Handoff — duplicate-folder-finder-web deployment-contract repair
-
-Date: 2026-08-27
-Work order: `duplicate-folder-finder-web-repair-1`
-Base verifier commit: `7c450ede7e5ff4a5ece354bbbdfb64d83a2ff805`
-
-## Delivered
-
-- Added `public/staticwebapp.config.json`, which Vite copies to the root of `dist/` for Static Web Apps deployment. It sends a restrictive same-origin CSP, `frame-ancestors 'none'`, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, strict referrer policy, and a restrictive Permissions-Policy.
-- Added ordered cache routes: all content-fingerprinted `/assets/*` responses receive `Cache-Control: public, max-age=31536000, immutable`; the app shell, legal pages, manifest, icons, offline page, and `sw.js` receive `Cache-Control: no-cache, must-revalidate` so updates are always revalidated safely.
-- Content-fingerprinted the shipped hero images before placing them under the immutable `/assets/*` route. This prevents an asset path from remaining stale after a visual update.
-- Added a build artifact contract check and unit regression for the Static Web Apps cache/security policy. The build fails if the output does not contain the config, a required hardening header, safe shell revalidation, or only fingerprinted immutable assets.
-- Added a small local Static Web Apps parity host and made browser tests use it, so the PWA, File System Access flow, offline reload/update toast, local IndexedDB state, CSP, cache rules, and headers are exercised together. It also hides the deployment config exactly as Azure does, preventing a deployment-only file from entering the service-worker precache. No product data is sent off-device.
-
-## Verification
-
-Completed from a clean dependency install (`npm ci`) on 2026-08-27:
+## Run and verify
 
 ```sh
+npm ci
 npm test
 npm run build
-npx playwright install chromium
-npm run test:e2e
-node scripts/serve-dist.mjs --port 4180
-curl -sSI http://127.0.0.1:4180/
-curl -sSI http://127.0.0.1:4180/assets/app-BCSgPf8v.js
-curl -sSI http://127.0.0.1:4180/sw.js
+npm run test:claims
+npm run test:e2e -- --workers=1
 ```
 
-- Unit and contract tests: **9/9 passed**.
-- Production build: passed. The generated service worker precached **24** paths. The artifact contract verified **17** fingerprinted assets.
-- Browser suite: **8/8 passed** on desktop Chromium and Pixel 5 using the header-parity host. This includes local sample scan/export, serious/critical axe checks on home/privacy/terms, mobile layout, a service-worker-controlled offline reload, and the in-app offline state.
-- Local header parity: `/assets/app-BCSgPf8v.js` returned the one-year immutable policy; `/` and `/sw.js` returned `no-cache, must-revalidate`; all returned CSP, frame protection, and Permissions-Policy.
-- The prior independent File System Access scan coverage remains intact: exact nested/empty-directory comparison, containment boundary, unreadable-file warning recovery, malformed report recovery, local-only request audit, update toast, keyboard/reduced-motion, and production Lighthouse mobile 100 performance / 100 accessibility results are recorded in `.factory/verification.md`.
-
-## Deployment and live parity
-
-- Deployed the corrected `dist/` artifact from `3e6b7f9` to the existing **Standard-tier Azure Static Web App** `sf-duplicate-folder-finder-web` in `sociobot`. No plan, billing, DNS, or other infrastructure setting was changed.
-- Live checks at `https://duplicate-folder-finder-web.sociobot.in/` passed after deploy: `/assets/app-BCSgPf8v.js` returns `public, max-age=31536000, immutable`; `/` and `/sw.js` return `no-cache, must-revalidate`; all three return the configured CSP, `X-Frame-Options: DENY`, and Permissions-Policy.
-- The live HTML references the new content-fingerprinted hero assets, confirming the deployed artifact matches this repair.
-- A fresh live Chromium session registered `mirrorbyte-f16f738887`, then reloaded the app offline with the expected folder-comparison heading and no console errors.
+The demo contract is in `.factory/demo.md`. The copy inventory is in `.factory/copy-audit.md`. The one-line catalog description is in `.factory/catalog-description.txt`.
 
 ## Known constraints
 
-- File System Access and reversible quarantine remain Chromium-only. Directory-upload fallback stays read-only and cannot expose empty directories.
-- Very large individual files are hashed in a worker as one buffer because Web Crypto has no incremental SHA-256 API.
-- Static Web Apps tier selection is deployment infrastructure, not an application-source setting. This repair is compatible only with the existing Standard-tier static app and does not create or modify any infrastructure.
+- Writable quarantine depends on Chromium’s File System Access API. Read-only folder selection remains available elsewhere.
+- Browsers do not expose empty folders through the read-only file-input fallback.
+- Web Crypto hashes each large file as one buffer because it has no incremental SHA-256 interface.
+
+These are platform constraints, not unresolved review blockers.
