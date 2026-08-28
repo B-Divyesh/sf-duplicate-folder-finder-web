@@ -7,7 +7,8 @@ const configPath = resolve(import.meta.dirname, '../public/staticwebapp.config.j
 test('Static Web Apps contract keeps immutable assets and a private, frame-safe shell', async () => {
   const config = JSON.parse(await readFile(configPath, 'utf8')) as {
     globalHeaders: Record<string, string>;
-    routes: Array<{ route: string; headers?: Record<string, string> }>;
+    routes: Array<{ route: string; rewrite?: string; headers?: Record<string, string> }>;
+    responseOverrides?: Record<string, { rewrite: string; statusCode: number }>;
   };
   const headersFor = (route: string) => config.routes.find((entry) => entry.route === route)?.headers ?? {};
 
@@ -18,4 +19,6 @@ test('Static Web Apps contract keeps immutable assets and a private, frame-safe 
   expect(config.globalHeaders['X-Frame-Options']).toBe('DENY');
   expect(config.globalHeaders['Permissions-Policy']).toContain('camera=()');
   expect(config.globalHeaders['Permissions-Policy']).not.toContain('file-system-access=()');
+  expect(config.routes.find((entry) => entry.route === '/demo')?.rewrite).toBe('/index.html');
+  expect(config.responseOverrides?.['404']).toEqual({ rewrite: '/404.html', statusCode: 404 });
 });

@@ -46,7 +46,7 @@ describe('folder tree comparison', () => {
     expect(duplicates[0]).toMatchObject({ sourcePath: 'photos', matchPath: 'archive', canQuarantine: true });
   });
 
-  it('finds independent duplicates inside one tree but suppresses ancestor pairs', async () => {
+  it('@claim:single-folder-duplicates finds independent duplicates inside one tree but suppresses ancestor pairs', async () => {
     const tree = await buildSnapshot('A', 'drive', [
       file('copy-one/data.txt', 'same'),
       file('copy-two/data.txt', 'same'),

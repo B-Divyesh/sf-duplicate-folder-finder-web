@@ -1,7 +1,7 @@
 import './style.css';
 import { collectDirectory, filesFromInput, scanSources } from './scanner';
 import { quarantineFolder } from './quarantine';
-import { loadReport, saveReport } from './storage';
+import { clearReport, loadReport, saveReport } from './storage';
 import type { DuplicateFinding, ScanProgress, ScanReport, SelectedSource, Side } from './types';
 
 const selected = new Map<Side, SelectedSource>();
@@ -10,6 +10,7 @@ let activeReport: ScanReport | undefined;
 let activeFilter: 'duplicates' | 'onlyA' | 'onlyB' | 'changed' = 'duplicates';
 let controller: AbortController | undefined;
 let lastFocused: HTMLElement | null = null;
+let demoMode = location.pathname.replace(/\/$/, '') === '/demo' || new URLSearchParams(location.search).get('demo') === '1';
 
 const byId = <T extends HTMLElement>(id: string): T => {
   const element = document.getElementById(id);
@@ -29,7 +30,10 @@ for (const side of ['A', 'B'] as const) {
 }
 
 scanButton.addEventListener('click', () => startScan());
-byId('sample-button').addEventListener('click', () => loadSample());
+for (const id of ['hero-demo', 'sample-button']) byId<HTMLAnchorElement>(id).addEventListener('click', enterDemoFromLink);
+document.querySelectorAll<HTMLAnchorElement>('a[href="/demo"], a[href="/"]').forEach((link) => link.addEventListener('click', navigateInsideApp));
+byId('reset-demo').addEventListener('click', resetDemo);
+byId('start-real').addEventListener('click', startForReal);
 byId('cancel-button').addEventListener('click', () => controller?.abort());
 byId('export-json').addEventListener('click', () => exportJson());
 byId('export-csv').addEventListener('click', () => exportCsv());
@@ -98,8 +102,8 @@ async function loadSample(): Promise<void> {
       { path: 'new/note.txt', file: makeFile('only in backup', 'note.txt') },
     ],
   });
-  setSourceStatus('A', 'Photo archive · 3 files · example', true);
-  setSourceStatus('B', 'Backup drive · 4 files · example', true);
+  setSourceStatus('A', 'Photo archive · 3 files · sample', true);
+  setSourceStatus('B', 'Backup drive · 4 files · sample', true);
   scanButton.disabled = false;
   await startScan();
 }
@@ -117,12 +121,13 @@ async function startScan(): Promise<void> {
   clearError();
   selectedFindings.clear();
   controller = new AbortController();
+  const storageSpace = demoMode ? 'demo' : 'real';
   setScanning(true);
   try {
     const b = selected.get('B');
     const { report } = await scanSources(a, b, updateProgress, controller.signal, [...(a.errors ?? []), ...(b?.errors ?? [])]);
     activeReport = report;
-    await saveReport(report);
+    await saveReport(report, storageSpace);
     renderReport(report);
   } catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError') showError('Scan cancelled. No files were changed.');
@@ -136,7 +141,8 @@ async function startScan(): Promise<void> {
 function setScanning(scanning: boolean): void {
   progressPanel.hidden = !scanning;
   scanButton.disabled = scanning || !selected.has('A');
-  document.querySelectorAll<HTMLButtonElement>('.choose-button, #sample-button').forEach((button) => { button.disabled = scanning; });
+  document.querySelectorAll<HTMLButtonElement>('.choose-button, #reset-demo, #start-real').forEach((button) => { button.disabled = scanning; });
+  for (const id of ['hero-demo', 'sample-button']) byId(id).setAttribute('aria-disabled', String(scanning));
 }
 
 function updateProgress(progress: ScanProgress): void {
@@ -304,7 +310,7 @@ async function importReport(event: Event): Promise<void> {
     const parsed = JSON.parse(await file.text()) as ScanReport;
     if (parsed.schemaVersion !== 1 || !Array.isArray(parsed.roots) || !Array.isArray(parsed.duplicates) || !parsed.differences) throw new Error('This is not a Mirrorbyte v1 report.');
     activeReport = parsed;
-    await saveReport(parsed);
+    await saveReport(parsed, demoMode ? 'demo' : 'real');
     renderReport(parsed, true);
     showToast('Report imported. File actions stay disabled until you re-select and scan the folders.');
   } catch (error) {
@@ -345,6 +351,105 @@ function showToast(message: string): void {
   window.setTimeout(() => { toast.hidden = true; }, 6000);
 }
 
+function isDemoUrl(url: URL): boolean {
+  return url.pathname.replace(/\/$/, '') === '/demo' || url.searchParams.get('demo') === '1';
+}
+
+function enterDemoFromLink(event: Event): void {
+  event.preventDefault();
+  if ((event.currentTarget as HTMLElement).getAttribute('aria-disabled') === 'true') return;
+  history.pushState({}, '', '/?demo=1');
+  void applyRoute(true);
+}
+
+function navigateInsideApp(event: MouseEvent): void {
+  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  const link = event.currentTarget as HTMLAnchorElement;
+  const url = new URL(link.href);
+  if (!['/', '/demo', '/demo/'].includes(url.pathname)) return;
+  event.preventDefault();
+  history.pushState({}, '', url.pathname === '/demo/' ? '/demo' : `${url.pathname}${url.search}`);
+  void applyRoute(true);
+}
+
+function resetWorkspace(): void {
+  selected.clear();
+  selectedFindings.clear();
+  activeReport = undefined;
+  activeFilter = 'duplicates';
+  resultsSection.hidden = true;
+  renderQuarantineBar();
+  setSourceStatus('A', 'No folder selected', false);
+  setSourceStatus('B', 'Optional for a one-folder scan', false);
+  scanButton.disabled = true;
+  clearError();
+}
+
+async function resetDemo(): Promise<void> {
+  const reset = byId<HTMLButtonElement>('reset-demo');
+  const leave = byId<HTMLButtonElement>('start-real');
+  reset.disabled = true;
+  leave.disabled = true;
+  try {
+    await clearReport('demo');
+    resetWorkspace();
+    await loadSample();
+    reset.focus();
+    showToast('Demo reset to the original sample comparison.');
+  } finally {
+    reset.disabled = false;
+    leave.disabled = false;
+  }
+}
+
+async function startForReal(): Promise<void> {
+  await clearReport('demo');
+  history.pushState({}, '', '/');
+  await applyRoute(true);
+}
+
+function updateRouteMetadata(inDemo: boolean): void {
+  const title = inDemo ? 'Demo — Mirrorbyte' : 'Mirrorbyte — Compare folders and find duplicates';
+  const description = inDemo
+    ? 'Inspect a completed sample folder comparison without changing your saved report.'
+    : 'Compare folders in your browser, find exact duplicates, and review differences without uploading files.';
+  const canonical = `https://duplicate-folder-finder-web.sociobot.in${inDemo ? '/demo' : '/'}`;
+  document.title = title;
+  document.querySelector<HTMLMetaElement>('meta[name="description"]')?.setAttribute('content', description);
+  document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.setAttribute('href', canonical);
+  document.querySelector<HTMLMetaElement>('meta[property="og:title"]')?.setAttribute('content', title);
+  document.querySelector<HTMLMetaElement>('meta[property="og:description"]')?.setAttribute('content', description);
+  document.querySelector<HTMLMetaElement>('meta[property="og:url"]')?.setAttribute('content', canonical);
+  document.querySelector<HTMLMetaElement>('meta[name="twitter:title"]')?.setAttribute('content', title);
+  document.querySelector<HTMLMetaElement>('meta[name="twitter:description"]')?.setAttribute('content', description);
+}
+
+async function applyRoute(moveFocus: boolean): Promise<void> {
+  const nextDemoMode = isDemoUrl(new URL(location.href));
+  const modeChanged = nextDemoMode !== demoMode;
+  demoMode = nextDemoMode;
+  byId('demo-banner').hidden = !demoMode;
+  updateRouteMetadata(demoMode);
+  const heading = byId<HTMLHeadingElement>('hero-title');
+  heading.innerHTML = demoMode
+    ? 'Inspect sample folders and <span>exact duplicates.</span>'
+    : 'Compare folders and find <span>exact duplicates.</span>';
+  document.querySelector<HTMLAnchorElement>('.site-nav a[href="/demo"]')?.toggleAttribute('aria-current', demoMode);
+  document.querySelector<HTMLAnchorElement>('.site-nav a[href="/"]')?.toggleAttribute('aria-current', !demoMode);
+  if (modeChanged || demoMode || !activeReport) {
+    resetWorkspace();
+    if (demoMode) await loadSample();
+    else {
+      const report = await loadReport('real').catch(() => undefined);
+      if (report) renderReport(report, true);
+    }
+  }
+  if (moveFocus) {
+    heading.focus({ preventScroll: true });
+    byId('route-announcer').textContent = heading.textContent ?? '';
+  }
+}
+
 function updateNetwork(event?: Event): void {
   const network = byId('network-status');
   const online = event?.type === 'offline' ? false : event?.type === 'online' ? true : navigator.onLine;
@@ -368,6 +473,5 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
   navigator.serviceWorker.addEventListener('controllerchange', () => { if (wasAlreadyControlled) showToast('Mirrorbyte was updated for offline use.'); });
 }
 
-loadReport().then((report) => {
-  if (report && !activeReport) renderReport(report, true);
-}).catch(() => undefined);
+window.addEventListener('popstate', () => { void applyRoute(true); });
+void applyRoute(false);

@@ -52,3 +52,9 @@ Hero illustration: an original AI-generated, hard-edged pixel-art scene of two d
 Subject: two asymmetrical towers built from stacked file folders, facing each other across a narrow data bridge, small blocks aligned and misaligned to explain matching and differences. World/materials: 1990s demoscene pixel art, crisp one-pixel clusters, dark circuit-board ground, no texture noise. Light/lens: orthographic three-quarter view, cyan scan light from between towers, sparse amber mismatch lights, deep ink shadows. Palette words: ink navy, phosphor cyan, warm parchment, signal amber, verification green. Negative list: no people, no brands, no text, no letters, no numbers, no logos, no watermark, no photorealism, no smooth 3D gradients, no copyrighted characters.
 
 Generation: Azure OpenAI image model via `/opt/fleet/lib/gen-image.sh`, `factory-image` deployment, 2026-08-27. The generated image is original for this product. Exact prompt and generation metadata are stored beside the source image in `assets/src/hero-directory-towers.json`. Generated imagery is disclosed in the site footer.
+
+The 1200×630 social image is a center crop of that original hero source, created locally on 2026-08-28. The 180px Apple touch icon is resized from the hand-authored product icon. No new third-party asset was introduced.
+
+## Repair additions
+
+Demo mode uses an amber, console-like status rail above the cyan comparison workspace. It reads as a temporary sandbox without changing the established pixel/demoscene identity. The 404 screen turns the directory blocks into a visibly broken path, reusing the same hard edges, cyan line, and amber exception marker. On phones, the artwork recedes so the job statement and sample action fit before the first viewport ends.

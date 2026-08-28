@@ -23,7 +23,8 @@ function headersFor(pathname) {
 async function fileFor(pathname) {
   // Azure Static Web Apps consumes this deployment file rather than publishing it.
   if (pathname === '/staticwebapp.config.json') return undefined;
-  const requested = decodeURIComponent(pathname);
+  const rewritten = config.routes.find(({ route, rewrite }) => rewrite && route === pathname)?.rewrite;
+  const requested = decodeURIComponent(rewritten ?? pathname);
   const relative = requested === '/' ? 'index.html' : requested.replace(/^\/+/, '');
   const candidate = resolve(root, normalize(relative));
   if (!candidate.startsWith(`${root}/`) && candidate !== root) return undefined;
@@ -43,8 +44,9 @@ const server = createServer(async (request, response) => {
   const url = new URL(request.url ?? '/', 'http://127.0.0.1');
   const file = await fileFor(url.pathname);
   if (!file) {
-    response.writeHead(404, headersFor(url.pathname));
-    response.end('Not found');
+    const notFound = join(root, '404.html');
+    response.writeHead(config.responseOverrides?.['404']?.statusCode ?? 404, { ...headersFor(url.pathname), 'Content-Type': contentTypes['.html'] });
+    createReadStream(notFound).pipe(response);
     return;
   }
   response.writeHead(200, { ...headersFor(url.pathname), 'Content-Type': contentTypes[extname(file)] ?? 'application/octet-stream' });

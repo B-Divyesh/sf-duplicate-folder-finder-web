@@ -1,0 +1,58 @@
+[
+  {
+    "id": "comparison-results",
+    "claim": "Compares folder contents, finds exact duplicate subfolders, and lists changed or one-sided files.",
+    "where": "landing page, demo results, README",
+    "test": "npm run test:claims -- --grep @claim:comparison-results",
+    "sandbox": "fresh Chromium context at /demo; assert the albums duplicate, changed receipt, and backup-only note"
+  },
+  {
+    "id": "single-folder-duplicates",
+    "claim": "Choosing Folder A alone finds exact duplicate subfolders inside that folder.",
+    "where": "folder chooser, README",
+    "test": "npm test -- --grep @claim:single-folder-duplicates",
+    "sandbox": "synthetic local folder snapshot with two independent matching subfolders; assert one duplicate pair and no ancestor pair"
+  },
+  {
+    "id": "local-only",
+    "claim": "Folder names, contents, and hashes stay in the browser; there is no account, analytics, tracking, or third-party request.",
+    "where": "first-screen facts, privacy page, README",
+    "test": "npm run test:claims -- --grep @claim:local-only",
+    "sandbox": "fresh Chromium context at /demo; capture every request through load, reset, and result rendering and require same-origin only"
+  },
+  {
+    "id": "offline-reload",
+    "claim": "Works offline after the first visit.",
+    "where": "first-screen facts, network status, README",
+    "test": "npm run test:claims -- --grep @claim:offline-reload",
+    "sandbox": "fresh Chromium context at /demo; install the service worker, go offline, reload, and reset the sample comparison"
+  },
+  {
+    "id": "report-exports",
+    "claim": "Exports the comparison report as JSON or CSV.",
+    "where": "result toolbar, README",
+    "test": "npm run test:claims -- --grep @claim:report-exports",
+    "sandbox": "fresh Chromium context at /demo; download both formats and assert duplicate and difference records"
+  },
+  {
+    "id": "demo-isolation",
+    "claim": "Demo data uses separate storage, resets to the shipped sample, and is discarded when the visitor starts for real.",
+    "where": "demo banner, privacy page, demo documentation",
+    "test": "npm run test:claims -- --grep @claim:demo-isolation",
+    "sandbox": "seed a real report, enter /demo, reset, leave demo, and prove the real record is unchanged and the demo record is gone"
+  },
+  {
+    "id": "local-persistence",
+    "claim": "The latest real report is stored in the browser and restored after refresh.",
+    "where": "privacy page, README",
+    "test": "npm run test:claims -- --grep @claim:local-persistence",
+    "sandbox": "start at /demo, leave demo, import a valid report into real mode, reload, and assert the saved result is restored"
+  },
+  {
+    "id": "quarantine-verification",
+    "claim": "Mirrorbyte verifies a copied folder before removing its original and leaves the original when verification fails.",
+    "where": "quarantine review, terms page, README",
+    "test": "npm run test:claims -- --grep @claim:quarantine-verification",
+    "sandbox": "start at /demo, enter real mode with an in-memory directory picker, corrupt the copied bytes, and assert the original is not removed"
+  }
+]

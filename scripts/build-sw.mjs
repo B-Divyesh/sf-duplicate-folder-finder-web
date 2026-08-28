@@ -24,7 +24,8 @@ self.addEventListener('fetch', event => {
   if (event.request.mode === 'navigate') {
     event.respondWith((async () => {
       const local = new URL(event.request.url);
-      const shell = local.pathname === '/' ? '/' : local.pathname.endsWith('/') ? local.pathname + 'index.html' : '/offline.html';
+      const known = { '/': '/', '/demo': '/index.html', '/demo/': '/index.html', '/privacy': '/privacy/index.html', '/privacy/': '/privacy/index.html', '/terms': '/terms/index.html', '/terms/': '/terms/index.html' };
+      const shell = known[local.pathname] || '/404.html';
       const cached = await caches.match(event.request, { ignoreSearch: true }) || await caches.match(shell);
       if (cached) {
         event.waitUntil(fetch(event.request).then(response => caches.open(CACHE).then(cache => cache.put(event.request, response))).catch(() => undefined));

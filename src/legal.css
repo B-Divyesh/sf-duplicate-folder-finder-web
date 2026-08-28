@@ -7,3 +7,11 @@
 .legal-main strong { color: var(--paper); }
 .legal-main ul { padding-left: 24px; }
 .legal-main .back-link { display: inline-flex; min-height: 44px; align-items: center; margin-top: 40px; }
+.not-found-main { min-height: calc(100vh - 222px); max-width: 980px; margin: 0 auto; padding: 96px 24px; display: grid; grid-template-columns: 1fr 280px; gap: 72px; align-items: center; }
+.not-found-main p:not(.step-label) { color: var(--mist); font-size: 18px; }
+.not-found-main .button { display: inline-flex; align-items: center; margin-top: 24px; text-decoration: none; }
+.broken-path { position: relative; display: grid; grid-template-columns: repeat(3, 64px); gap: 12px; padding: 48px 24px; border-bottom: 6px dotted var(--cyan); }
+.broken-path span { height: 64px; border: 2px solid var(--cyan); background: var(--ink-800); box-shadow: 5px 5px 0 var(--cyan-deep); }
+.broken-path span:last-of-type { border-color: var(--amber); transform: translateY(-22px); }
+.broken-path i { position: absolute; right: 0; top: 0; color: var(--amber); font: 700 50px/1 var(--mono); }
+@media (max-width: 720px) { .not-found-main { min-height: 620px; display: block; padding-top: 72px; } .broken-path { max-width: 280px; margin-top: 64px; transform: scale(.8); transform-origin: left center; } }

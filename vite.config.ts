@@ -9,6 +9,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         app: resolve(import.meta.dirname, 'index.html'),
+        notFound: resolve(import.meta.dirname, '404.html'),
         privacy: resolve(import.meta.dirname, 'privacy/index.html'),
         terms: resolve(import.meta.dirname, 'terms/index.html'),
       },

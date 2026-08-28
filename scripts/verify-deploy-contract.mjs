@@ -21,7 +21,7 @@ const assets = await readdir(join(root, 'assets'));
 for (const asset of assets) {
   assert.match(asset, /-[A-Za-z0-9_-]{8,}\.[^.]+(?:\.map)?$/, `immutable asset lacks a content fingerprint: ${asset}`);
 }
-for (const required of ['index.html', 'offline.html', 'sw.js', 'staticwebapp.config.json', 'privacy/index.html', 'terms/index.html']) {
+for (const required of ['index.html', '404.html', 'offline.html', 'sw.js', 'staticwebapp.config.json', 'privacy/index.html', 'terms/index.html']) {
   await readFile(join(root, required));
 }
 assert.doesNotMatch(await readFile(join(root, 'sw.js'), 'utf8'), /staticwebapp\.config\.json/, 'deployment-only config must not break service-worker precache on Azure');
