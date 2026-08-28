@@ -2,6 +2,7 @@
   "communities": {
     "0": [
       "src_app",
+      "src_app_applyroute",
       "src_app_byid",
       "src_app_choosefolder",
       "src_app_clearerror",
@@ -9,20 +10,25 @@
       "src_app_dialog",
       "src_app_duplicaterow",
       "src_app_emptyrow",
+      "src_app_enterdemofromlink",
       "src_app_errormessage",
       "src_app_escapehtml",
       "src_app_formatbytes",
       "src_app_formatcount",
       "src_app_importreport",
       "src_app_inputfolder",
+      "src_app_isdemourl",
       "src_app_loadsample",
       "src_app_messageof",
+      "src_app_navigateinsideapp",
       "src_app_openquarantinedialog",
       "src_app_pathsoverlap",
       "src_app_progresspanel",
       "src_app_renderlist",
       "src_app_renderquarantinebar",
       "src_app_renderreport",
+      "src_app_resetdemo",
+      "src_app_resetworkspace",
       "src_app_resultssection",
       "src_app_scanbutton",
       "src_app_selected",
@@ -31,10 +37,20 @@
       "src_app_setsourcestatus",
       "src_app_showerror",
       "src_app_showtoast",
+      "src_app_startforreal",
       "src_app_startscan",
       "src_app_updatenetwork",
       "src_app_updateprogress",
-      "src_app_verdictfor"
+      "src_app_updateroutemetadata",
+      "src_app_verdictfor",
+      "src_scanner_filesfrominput",
+      "src_storage",
+      "src_storage_clearreport",
+      "src_storage_db_names",
+      "src_storage_loadreport",
+      "src_storage_opendatabase",
+      "src_storage_savereport",
+      "src_storage_storagespace"
     ],
     "1": [
       "src_quarantine",
@@ -45,13 +61,15 @@
       "src_scanner",
       "src_scanner_buildsnapshot",
       "src_scanner_buildsnapshot_finalize",
+      "src_scanner_collectdirectory",
+      "src_scanner_collectdirectory_walk",
       "src_scanner_comparesnapshots",
       "src_scanner_digesttext",
       "src_scanner_encoder",
-      "src_scanner_filesfrominput",
       "src_scanner_findduplicates",
       "src_scanner_hashinputfiles",
       "src_scanner_isancestor",
+      "src_scanner_messageof",
       "src_scanner_mutablefolder",
       "src_scanner_normalizepath",
       "src_scanner_scansources",
@@ -104,16 +122,10 @@
       "tsconfig_include"
     ],
     "3": [
-      "axe_core_playwright",
       "package",
-      "package_devdependencies",
-      "package_devdependencies_axe_core_playwright",
-      "package_devdependencies_playwright_test",
-      "package_devdependencies_types_node",
-      "package_devdependencies_typescript",
-      "package_devdependencies_vite",
-      "package_devdependencies_vitest",
       "package_name",
+      "package_overrides",
+      "package_overrides_playwright_core",
       "package_private",
       "package_scripts",
       "package_scripts_build",
@@ -121,27 +133,57 @@
       "package_scripts_dev",
       "package_scripts_preview",
       "package_scripts_test",
+      "package_scripts_test_claims",
       "package_scripts_test_e2e",
       "package_type",
-      "package_version",
+      "package_version"
+    ],
+    "4": [
+      "axe_core_playwright",
+      "package_devdependencies",
+      "package_devdependencies_axe_core_playwright",
+      "package_devdependencies_playwright_test",
+      "package_devdependencies_types_node",
+      "package_devdependencies_typescript",
+      "package_devdependencies_vite",
+      "package_devdependencies_vitest",
       "playwright_test",
       "types_node",
       "typescript",
       "vite",
       "vitest"
     ],
-    "4": [
+    "5": [
       "public_staticwebapp_config",
+      "public_staticwebapp_config_404_rewrite",
+      "public_staticwebapp_config_404_statuscode",
       "public_staticwebapp_config_globalheaders",
       "public_staticwebapp_config_globalheaders_content_security_policy",
       "public_staticwebapp_config_globalheaders_permissions_policy",
       "public_staticwebapp_config_globalheaders_referrer_policy",
       "public_staticwebapp_config_globalheaders_x_content_type_options",
       "public_staticwebapp_config_globalheaders_x_frame_options",
+      "public_staticwebapp_config_responseoverrides",
+      "public_staticwebapp_config_responseoverrides_404",
       "public_staticwebapp_config_routes",
       "public_staticwebapp_config_schema"
     ],
-    "5": [
+    "6": [
+      "tests_e2e_claims_spec",
+      "tests_e2e_claims_spec_demoresult",
+      "tests_e2e_claims_spec_memorydirectoryhandle",
+      "tests_e2e_claims_spec_memorydirectoryhandle_constructor",
+      "tests_e2e_claims_spec_memorydirectoryhandle_entries",
+      "tests_e2e_claims_spec_memorydirectoryhandle_getdirectoryhandle",
+      "tests_e2e_claims_spec_memorydirectoryhandle_getfilehandle",
+      "tests_e2e_claims_spec_memorydirectoryhandle_removeentry",
+      "tests_e2e_claims_spec_memorydirectoryhandle_requestpermission",
+      "tests_e2e_claims_spec_memoryfilehandle",
+      "tests_e2e_claims_spec_memoryfilehandle_constructor",
+      "tests_e2e_claims_spec_memoryfilehandle_createwritable",
+      "tests_e2e_claims_spec_memoryfilehandle_getfile"
+    ],
+    "7": [
       "scripts_serve_dist",
       "scripts_serve_dist_config",
       "scripts_serve_dist_contenttypes",
@@ -151,89 +193,82 @@
       "scripts_serve_dist_root",
       "scripts_serve_dist_server"
     ],
-    "6": [
+    "8": [
       "src_app_csvcell",
       "src_app_datestamp",
       "src_app_download",
       "src_app_exportcsv",
       "src_app_exportjson"
     ],
-    "7": [
-      "src_storage",
-      "src_storage_clearreport",
-      "src_storage_loadreport",
-      "src_storage_opendatabase",
-      "src_storage_savereport"
-    ],
-    "8": [
+    "9": [
       "scripts_build_sw",
       "scripts_build_sw_assets",
       "scripts_build_sw_filesat",
       "scripts_build_sw_version"
     ],
-    "9": [
+    "10": [
       "scripts_verify_deploy_contract",
       "scripts_verify_deploy_contract_assetroute",
       "scripts_verify_deploy_contract_config",
       "scripts_verify_deploy_contract_fallbackroute"
     ],
-    "10": [
+    "11": [
       "src_vite_env_d",
       "src_vite_env_d_filesystemdirectoryhandle",
       "src_vite_env_d_filesystemdirectoryhandle_entries",
       "src_vite_env_d_filesystemdirectoryhandle_requestpermission"
     ],
-    "11": [
+    "12": [
       "src_hash_worker",
       "src_hash_worker_hashrequest",
       "src_hash_worker_scope"
-    ],
-    "12": [
-      "src_scanner_collectdirectory",
-      "src_scanner_collectdirectory_walk",
-      "src_scanner_messageof"
     ],
     "13": [
       "src_legal",
       "src_legal_network"
     ],
     "14": [
+      "tests_claims_contract_test",
+      "tests_claims_contract_test_claim"
+    ],
+    "15": [
       "tests_deployment_contract_test",
       "tests_deployment_contract_test_configpath"
     ],
-    "15": [
+    "16": [
       "playwright_config"
     ],
-    "16": [
+    "17": [
       "tests_e2e_app_spec"
     ],
-    "17": [
+    "18": [
       "vite_config"
     ],
-    "18": [
+    "19": [
       "vitest_config"
     ]
   },
   "cohesion": {
-    "0": 0.1497326203208556,
-    "1": 0.1265597147950089,
+    "0": 0.10530612244897959,
+    "1": 0.11587301587301588,
     "2": 0.06896551724137931,
-    "3": 0.08,
-    "4": 0.2222222222222222,
-    "5": 0.32142857142857145,
-    "6": 0.5,
-    "7": 0.7,
+    "3": 0.13333333333333333,
+    "4": 0.15384615384615385,
+    "5": 0.15384615384615385,
+    "6": 0.15384615384615385,
+    "7": 0.32142857142857145,
     "8": 0.5,
     "9": 0.5,
     "10": 0.5,
-    "11": 0.6666666666666666,
+    "11": 0.5,
     "12": 0.6666666666666666,
     "13": 1.0,
     "14": 1.0,
     "15": 1.0,
     "16": 1.0,
     "17": 1.0,
-    "18": 1.0
+    "18": 1.0,
+    "19": 1.0
   },
   "gods": [
     {
@@ -244,12 +279,12 @@
     {
       "id": "src_app_byid",
       "label": "byId()",
-      "degree": 11
+      "degree": 14
     },
     {
-      "id": "src_app_renderlist",
-      "label": "renderList()",
-      "degree": 10
+      "id": "src_app_applyroute",
+      "label": "applyRoute()",
+      "degree": 11
     },
     {
       "id": "src_app_startscan",
@@ -257,8 +292,23 @@
       "degree": 10
     },
     {
+      "id": "src_app_renderlist",
+      "label": "renderList()",
+      "degree": 10
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 8
+    },
+    {
       "id": "src_app_choosefolder",
       "label": "chooseFolder()",
+      "degree": 8
+    },
+    {
+      "id": "src_app_renderreport",
+      "label": "renderReport()",
       "degree": 8
     },
     {
@@ -267,23 +317,8 @@
       "degree": 8
     },
     {
-      "id": "src_app_renderreport",
-      "label": "renderReport()",
-      "degree": 7
-    },
-    {
       "id": "src_quarantine_quarantinefolder",
       "label": "quarantineFolder()",
-      "degree": 7
-    },
-    {
-      "id": "src_scanner_buildsnapshot",
-      "label": "buildSnapshot()",
-      "degree": 7
-    },
-    {
-      "id": "src_scanner_scansources",
-      "label": "scanSources()",
       "degree": 7
     }
   ],
@@ -300,17 +335,6 @@
       "why": "peripheral node `QuarantineRequest` unexpectedly reaches hub `Side`"
     },
     {
-      "source": "chooseFolder()",
-      "target": "collectDirectory()",
-      "source_files": [
-        "src/app.ts",
-        "src/scanner.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
       "source": "confirmQuarantine()",
       "target": "quarantineFolder()",
       "source_files": [
@@ -322,19 +346,8 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "importReport()",
-      "target": "saveReport()",
-      "source_files": [
-        "src/app.ts",
-        "src/storage.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "inputFolder()",
-      "target": "filesFromInput()",
+      "source": "startScan()",
+      "target": "scanSources()",
       "source_files": [
         "src/app.ts",
         "src/scanner.ts"
@@ -342,6 +355,28 @@
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "bridges separate communities"
+    },
+    {
+      "source": "chooseFolder()",
+      "target": "collectDirectory()",
+      "source_files": [
+        "src/app.ts",
+        "src/scanner.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "MutableFolder",
+      "target": "HashedFile",
+      "source_files": [
+        "src/scanner.ts",
+        "src/types.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "cross-file semantic connection"
     }
   ],
   "tokens": {
