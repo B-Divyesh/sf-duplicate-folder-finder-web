@@ -7,20 +7,16 @@
       "src_app_choosefolder",
       "src_app_clearerror",
       "src_app_confirmquarantine",
-      "src_app_csvcell",
-      "src_app_datestamp",
       "src_app_dialog",
-      "src_app_download",
       "src_app_duplicaterow",
       "src_app_emptyrow",
       "src_app_enterdemofromlink",
       "src_app_errormessage",
       "src_app_escapehtml",
-      "src_app_exportcsv",
-      "src_app_exportjson",
       "src_app_formatbytes",
       "src_app_formatcount",
       "src_app_importreport",
+      "src_app_initialnavigation",
       "src_app_inputfolder",
       "src_app_isdemourl",
       "src_app_loadsample",
@@ -42,13 +38,11 @@
       "src_app_setsourcestatus",
       "src_app_showerror",
       "src_app_showtoast",
-      "src_app_startforreal",
       "src_app_startscan",
       "src_app_updatenetwork",
       "src_app_updateprogress",
       "src_app_updateroutemetadata",
-      "src_app_verdictfor",
-      "src_scanner_filesfrominput"
+      "src_app_verdictfor"
     ],
     "1": [
       "src_quarantine",
@@ -64,6 +58,7 @@
       "src_scanner_comparesnapshots",
       "src_scanner_digesttext",
       "src_scanner_encoder",
+      "src_scanner_filesfrominput",
       "src_scanner_findduplicates",
       "src_scanner_hashinputfiles",
       "src_scanner_isancestor",
@@ -81,7 +76,6 @@
       "src_types_inputfile",
       "src_types_relation",
       "src_types_scanprogress",
-      "src_types_scanreport",
       "src_types_selectedsource",
       "src_types_side",
       "src_types_treesnapshot",
@@ -138,6 +132,23 @@
       "package_version"
     ],
     "4": [
+      "tests_e2e_claims_spec",
+      "tests_e2e_claims_spec_completeverifiedholdingmove",
+      "tests_e2e_claims_spec_demoresult",
+      "tests_e2e_claims_spec_installverifiedmovefolders",
+      "tests_e2e_claims_spec_memorydirectoryhandle",
+      "tests_e2e_claims_spec_memorydirectoryhandle_constructor",
+      "tests_e2e_claims_spec_memorydirectoryhandle_entries",
+      "tests_e2e_claims_spec_memorydirectoryhandle_getdirectoryhandle",
+      "tests_e2e_claims_spec_memorydirectoryhandle_getfilehandle",
+      "tests_e2e_claims_spec_memorydirectoryhandle_removeentry",
+      "tests_e2e_claims_spec_memorydirectoryhandle_requestpermission",
+      "tests_e2e_claims_spec_memoryfilehandle",
+      "tests_e2e_claims_spec_memoryfilehandle_constructor",
+      "tests_e2e_claims_spec_memoryfilehandle_createwritable",
+      "tests_e2e_claims_spec_memoryfilehandle_getfile"
+    ],
+    "5": [
       "axe_core_playwright",
       "package_devdependencies",
       "package_devdependencies_axe_core_playwright",
@@ -152,7 +163,7 @@
       "vite",
       "vitest"
     ],
-    "5": [
+    "6": [
       "public_staticwebapp_config",
       "public_staticwebapp_config_404_rewrite",
       "public_staticwebapp_config_404_statuscode",
@@ -167,22 +178,18 @@
       "public_staticwebapp_config_routes",
       "public_staticwebapp_config_schema"
     ],
-    "6": [
-      "tests_e2e_claims_spec",
-      "tests_e2e_claims_spec_demoresult",
-      "tests_e2e_claims_spec_memorydirectoryhandle",
-      "tests_e2e_claims_spec_memorydirectoryhandle_constructor",
-      "tests_e2e_claims_spec_memorydirectoryhandle_entries",
-      "tests_e2e_claims_spec_memorydirectoryhandle_getdirectoryhandle",
-      "tests_e2e_claims_spec_memorydirectoryhandle_getfilehandle",
-      "tests_e2e_claims_spec_memorydirectoryhandle_removeentry",
-      "tests_e2e_claims_spec_memorydirectoryhandle_requestpermission",
-      "tests_e2e_claims_spec_memoryfilehandle",
-      "tests_e2e_claims_spec_memoryfilehandle_constructor",
-      "tests_e2e_claims_spec_memoryfilehandle_createwritable",
-      "tests_e2e_claims_spec_memoryfilehandle_getfile"
-    ],
     "7": [
+      "src_app_startforreal",
+      "src_storage",
+      "src_storage_clearreport",
+      "src_storage_db_names",
+      "src_storage_loadreport",
+      "src_storage_opendatabase",
+      "src_storage_savereport",
+      "src_storage_storagespace",
+      "src_types_scanreport"
+    ],
+    "8": [
       "scripts_serve_dist",
       "scripts_serve_dist_config",
       "scripts_serve_dist_contenttypes",
@@ -192,91 +199,103 @@
       "scripts_serve_dist_root",
       "scripts_serve_dist_server"
     ],
-    "8": [
-      "src_storage",
-      "src_storage_clearreport",
-      "src_storage_db_names",
-      "src_storage_loadreport",
-      "src_storage_opendatabase",
-      "src_storage_savereport",
-      "src_storage_storagespace"
-    ],
     "9": [
+      "src_app_csvcell",
+      "src_app_datestamp",
+      "src_app_download",
+      "src_app_exportcsv",
+      "src_app_exportjson"
+    ],
+    "10": [
       "scripts_build_sw",
       "scripts_build_sw_assets",
       "scripts_build_sw_filesat",
       "scripts_build_sw_version"
     ],
-    "10": [
+    "11": [
       "scripts_run_claim_contract",
       "scripts_run_claim_contract_claims",
       "scripts_run_claim_contract_root",
       "scripts_run_claim_contract_run"
     ],
-    "11": [
+    "12": [
       "scripts_verify_deploy_contract",
       "scripts_verify_deploy_contract_assetroute",
       "scripts_verify_deploy_contract_config",
       "scripts_verify_deploy_contract_fallbackroute"
     ],
-    "12": [
+    "13": [
       "src_vite_env_d",
       "src_vite_env_d_filesystemdirectoryhandle",
       "src_vite_env_d_filesystemdirectoryhandle_entries",
       "src_vite_env_d_filesystemdirectoryhandle_requestpermission"
     ],
-    "13": [
+    "14": [
+      "factory_evidence_polish_3_live_recheck",
+      "factory_evidence_polish_3_live_recheck_fail",
+      "factory_evidence_polish_3_live_recheck_report"
+    ],
+    "15": [
       "src_hash_worker",
       "src_hash_worker_hashrequest",
       "src_hash_worker_scope"
     ],
-    "14": [
+    "16": [
       "src_legal",
+      "src_legal_announceroute",
       "src_legal_network"
     ],
-    "15": [
+    "17": [
+      "tests_e2e_app_spec",
+      "tests_e2e_app_spec_delayedworker",
+      "tests_e2e_app_spec_delayedworker_postmessage"
+    ],
+    "18": [
       "tests_claims_contract_test",
       "tests_claims_contract_test_claim"
     ],
-    "16": [
+    "19": [
       "tests_deployment_contract_test",
       "tests_deployment_contract_test_configpath"
     ],
-    "17": [
+    "20": [
       "playwright_config"
     ],
-    "18": [
-      "tests_e2e_app_spec"
+    "21": [
+      "public_demo_boot"
     ],
-    "19": [
+    "22": [
       "vite_config"
     ],
-    "20": [
+    "23": [
       "vitest_config"
     ]
   },
   "cohesion": {
-    "0": 0.10726950354609929,
+    "0": 0.1254355400696864,
     "1": 0.11587301587301588,
     "2": 0.06896551724137931,
     "3": 0.125,
-    "4": 0.15384615384615385,
+    "4": 0.14285714285714285,
     "5": 0.15384615384615385,
     "6": 0.15384615384615385,
-    "7": 0.32142857142857145,
-    "8": 0.42857142857142855,
+    "7": 0.3055555555555556,
+    "8": 0.32142857142857145,
     "9": 0.5,
     "10": 0.5,
     "11": 0.5,
     "12": 0.5,
-    "13": 0.6666666666666666,
-    "14": 1.0,
-    "15": 1.0,
-    "16": 1.0,
-    "17": 1.0,
+    "13": 0.5,
+    "14": 0.6666666666666666,
+    "15": 0.6666666666666666,
+    "16": 0.6666666666666666,
+    "17": 0.6666666666666666,
     "18": 1.0,
     "19": 1.0,
-    "20": 1.0
+    "20": 1.0,
+    "21": 1.0,
+    "22": 1.0,
+    "23": 1.0
   },
   "gods": [
     {
@@ -295,13 +314,13 @@
       "degree": 11
     },
     {
-      "id": "src_app_renderlist",
-      "label": "renderList()",
+      "id": "src_app_startscan",
+      "label": "startScan()",
       "degree": 10
     },
     {
-      "id": "src_app_startscan",
-      "label": "startScan()",
+      "id": "src_app_renderlist",
+      "label": "renderList()",
       "degree": 10
     },
     {
@@ -315,18 +334,18 @@
       "degree": 8
     },
     {
-      "id": "src_app_confirmquarantine",
-      "label": "confirmQuarantine()",
-      "degree": 8
-    },
-    {
       "id": "src_app_renderreport",
       "label": "renderReport()",
       "degree": 8
     },
     {
-      "id": "tests_e2e_claims_spec_memorydirectoryhandle",
-      "label": "MemoryDirectoryHandle",
+      "id": "src_app_confirmquarantine",
+      "label": "confirmQuarantine()",
+      "degree": 8
+    },
+    {
+      "id": "src_quarantine_quarantinefolder",
+      "label": "quarantineFolder()",
       "degree": 7
     }
   ],
@@ -343,19 +362,8 @@
       "why": "peripheral node `QuarantineRequest` unexpectedly reaches hub `Side`"
     },
     {
-      "source": "applyRoute()",
-      "target": "loadReport()",
-      "source_files": [
-        "src/app.ts",
-        "src/storage.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "chooseFolder()",
-      "target": "collectDirectory()",
+      "source": "inputFolder()",
+      "target": "filesFromInput()",
       "source_files": [
         "src/app.ts",
         "src/scanner.ts"
@@ -376,11 +384,22 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "importReport()",
-      "target": "saveReport()",
+      "source": "chooseFolder()",
+      "target": "collectDirectory()",
       "source_files": [
         "src/app.ts",
-        "src/storage.ts"
+        "src/scanner.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "startScan()",
+      "target": "scanSources()",
+      "source_files": [
+        "src/app.ts",
+        "src/scanner.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
