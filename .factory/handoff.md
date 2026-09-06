@@ -89,3 +89,13 @@ Evidence is in `/work/.evidence/duplicate-folder-finder-web-repair-3/`. The cata
 ## Known product constraints
 
 There are no known repair gaps. Chrome or Edge provides writable File System Access and holding-folder moves. Other browsers use a read-only folder-upload fallback and cannot expose empty folders. Browser and operating-system failures remain possible, so visitors are told to keep a separate backup. This is a static, local-first PWA with no backend, billing offer, analytics, account, or AI feature.
+
+## Independent verification 4
+
+Date: 2026-09-06
+
+**PASS — 0 findings and 0 untested claims.** Independent QA reviewed implementation `9f76295a842afe1e5ba13a094d05a6014c7e4b80`; the associated documentation commit is `c1689766b5a64400d11bfd66a47463b09f08c588`.
+
+A fresh detached checkout passed `npm ci`, `npm test` (10/10), `npm run build`, all ten exact claim commands, `npm run test:claims:contract`, and `npm run test:e2e` (48/48). Fresh desktop and phone live contexts confirmed the job/audience/first action before scrolling, realistic one-click sample output, persistent demo label, keyboard Reset, demo isolation, invalid-import recovery, offline reload/reset/legal/404, routes, links, headers, and no serious/critical Axe violations. The repaired delayed-route focus path passed 5/5 fresh desktop and 5/5 fresh phone runs; the live runtime matched all 27 public candidate files byte-for-byte.
+
+Full independent evidence and the earlier-finding audit are in [.factory/verification-4.md](verification-4.md). A local Lighthouse CLI browser connection/tab crash prevented a new score; direct live Lighthouse-class semantic, accessibility, motion, console, and performance-budget checks passed, while the prior handoff retains the successful 100/100/100/100 run. No product repair gap is known.
