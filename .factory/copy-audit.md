@@ -1,8 +1,8 @@
 # Copy audit
 
-Date: 2026-09-06 — repair 2 recheck
+Date: 2026-09-06 — repair 3 recheck
 
-Repair 2 changed result positioning and test coverage only. No visitor-facing words changed. The complete sentence and terminology audit below was rechecked against the current landing page and README.
+Repair 3 changed route focus timing and test coverage only. No visitor-facing words changed. The complete sentence and terminology audit below was rechecked against the current landing page and README.
 
 The first 390×844 screen says the job, audience, sample action, outcome, and three facts. The visitor vocabulary is **folder**, **subfolder**, **report**, **holding folder**, and **demo**. Implementation words such as `root`, `SHA-256`, `Merkle`, `IndexedDB`, and `quarantine` stay out of visitor-facing copy.
 
