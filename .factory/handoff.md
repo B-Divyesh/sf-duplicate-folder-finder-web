@@ -99,3 +99,15 @@ Date: 2026-09-06
 A fresh detached checkout passed `npm ci`, `npm test` (10/10), `npm run build`, all ten exact claim commands, `npm run test:claims:contract`, and `npm run test:e2e` (48/48). Fresh desktop and phone live contexts confirmed the job/audience/first action before scrolling, realistic one-click sample output, persistent demo label, keyboard Reset, demo isolation, invalid-import recovery, offline reload/reset/legal/404, routes, links, headers, and no serious/critical Axe violations. The repaired delayed-route focus path passed 5/5 fresh desktop and 5/5 fresh phone runs; the live runtime matched all 27 public candidate files byte-for-byte.
 
 Full independent evidence and the earlier-finding audit are in [.factory/verification-4.md](verification-4.md). A local Lighthouse CLI browser connection/tab crash prevented a new score; direct live Lighthouse-class semantic, accessibility, motion, console, and performance-budget checks passed, while the prior handoff retains the successful 100/100/100/100 run. No product repair gap is known.
+
+## Strict review 7
+
+Date: 2026-09-06
+
+**PASS — 0 findings and 0 untested claims.** Review 7 independently checked deployed implementation `9f76295a842afe1e5ba13a094d05a6014c7e4b80`; its verification documentation is `f701f19` and the repository pointer is `60ed83f`.
+
+A fresh detached checkout passed `npm ci` (0 vulnerabilities), `npm test` (10/10), `npm run build`, every one of the ten exact claim commands individually, and `npm run test:e2e` (48/48). All 27 public candidate artifacts matched the live runtime byte-for-byte.
+
+Fresh desktop and phone browsers showed the job, audience, and **Try it with sample data** before scrolling. The isolated sample had the persistent demo label, the exact `albums` result, B-only `new/note.txt`, and changed `receipts/2025.txt`. Keyboard Reset succeeded and preserved Reset focus on both form factors. Fresh live Axe checks found no serious or critical issues on home, Demo, Privacy, Terms, or the designed 404. Offline demo reload/reset, legal pages, and the designed HTTP 404 worked after service-worker control. The live deployment emitted no console errors, made only same-origin product requests, and retained hardened headers.
+
+The complete report and earlier-finding disposition are in [.factory/review-7.md](review-7.md). No product code was changed.
