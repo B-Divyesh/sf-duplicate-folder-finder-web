@@ -22,6 +22,7 @@ The new browser regression delays layout frames to make the old race determinist
 
 - Review/report base: `8496298bb33aa27e215ae71f69534c3cf9abe069`.
 - Deployed implementation: `9f76295a842afe1e5ba13a094d05a6014c7e4b80` (`fix: preserve demo reset keyboard focus`).
+- Verification documentation: `c1689766b5a64400d11bfd66a47463b09f08c588` (`docs: record repair 3 verification`); the following metadata-only commit records this pointer.
 - The implementation was pushed to `origin/main` and deployed from a detached clean worktree.
 - Static deployment completed successfully on 2026-09-06. The product custom domain returned HTTPS 200 with managed TLS.
 - All 27 public non-source-map files from the clean build matched the live deployment byte for byte.
