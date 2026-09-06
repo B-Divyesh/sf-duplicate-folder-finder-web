@@ -311,13 +311,13 @@
       "degree": 15
     },
     {
-      "id": "src_app_applyroute",
-      "label": "applyRoute()",
+      "id": "src_app_startscan",
+      "label": "startScan()",
       "degree": 11
     },
     {
-      "id": "src_app_startscan",
-      "label": "startScan()",
+      "id": "src_app_applyroute",
+      "label": "applyRoute()",
       "degree": 11
     },
     {
@@ -336,13 +336,13 @@
       "degree": 8
     },
     {
-      "id": "src_app_confirmquarantine",
-      "label": "confirmQuarantine()",
+      "id": "src_app_renderreport",
+      "label": "renderReport()",
       "degree": 8
     },
     {
-      "id": "src_app_renderreport",
-      "label": "renderReport()",
+      "id": "src_app_confirmquarantine",
+      "label": "confirmQuarantine()",
       "degree": 8
     },
     {
@@ -364,11 +364,11 @@
       "why": "peripheral node `QuarantineRequest` unexpectedly reaches hub `Side`"
     },
     {
-      "source": "applyRoute()",
-      "target": "loadReport()",
+      "source": "confirmQuarantine()",
+      "target": "quarantineFolder()",
       "source_files": [
         "src/app.ts",
-        "src/storage.ts"
+        "src/quarantine.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
@@ -386,22 +386,22 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "confirmQuarantine()",
-      "target": "quarantineFolder()",
+      "source": "inputFolder()",
+      "target": "filesFromInput()",
       "source_files": [
         "src/app.ts",
-        "src/quarantine.ts"
+        "src/scanner.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "bridges separate communities"
     },
     {
-      "source": "importReport()",
-      "target": "saveReport()",
+      "source": "startScan()",
+      "target": "scanSources()",
       "source_files": [
         "src/app.ts",
-        "src/storage.ts"
+        "src/scanner.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",

@@ -193,7 +193,7 @@
       "file_type": "code",
       "norm_label": "delayedworker",
       "source_file": "tests/e2e/app.spec.ts",
-      "source_location": "L116"
+      "source_location": "L136"
     },
     {
       "id": "tests_claims_contract_test_claim",
@@ -902,7 +902,7 @@
       "file_type": "code",
       "norm_label": ".postmessage()",
       "source_file": "tests/e2e/app.spec.ts",
-      "source_location": "L117"
+      "source_location": "L137"
     },
     {
       "id": "tests_e2e_claims_spec_completeverifiedholdingmove",
@@ -2439,7 +2439,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/app.ts",
-      "source_location": "L472",
+      "source_location": "L476",
       "weight": 1.0
     },
     {
@@ -2451,7 +2451,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/app.ts",
-      "source_location": "L473",
+      "source_location": "L477",
       "weight": 1.0
     },
     {
@@ -2463,7 +2463,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/app.ts",
-      "source_location": "L475",
+      "source_location": "L479",
       "weight": 1.0
     },
     {
@@ -2475,7 +2475,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/app.ts",
-      "source_location": "L476",
+      "source_location": "L480",
       "weight": 1.0
     },
     {
@@ -5901,7 +5901,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/e2e/app.spec.ts",
-      "source_location": "L116",
+      "source_location": "L136",
       "weight": 1.0
     },
     {
@@ -6187,7 +6187,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/e2e/app.spec.ts",
-      "source_location": "L117",
+      "source_location": "L137",
       "weight": 1.0
     },
     {
@@ -6399,5 +6399,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "8496298bb33aa27e215ae71f69534c3cf9abe069"
+  "built_at_commit": "c85adc0eeaa61b533b32550635d3167fa33fdee3"
 }
