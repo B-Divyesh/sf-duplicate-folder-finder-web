@@ -468,6 +468,10 @@ async function applyRoute(moveFocus: boolean): Promise<void> {
     : 'Compare folders and find <span>exact duplicates.</span>';
   document.querySelector<HTMLAnchorElement>('.site-nav a[href="/demo"]')?.toggleAttribute('aria-current', demoMode);
   document.querySelector<HTMLAnchorElement>('.site-nav a[href="/"]')?.toggleAttribute('aria-current', !demoMode);
+  if (moveFocus) {
+    heading.focus({ preventScroll: true });
+    byId('route-announcer').textContent = heading.textContent ?? '';
+  }
   if (modeChanged || demoMode || !activeReport) {
     resetWorkspace();
     if (demoMode) await loadSample();
@@ -475,10 +479,6 @@ async function applyRoute(moveFocus: boolean): Promise<void> {
       const report = await loadReport('real').catch(() => undefined);
       if (report) renderReport(report, true);
     }
-  }
-  if (moveFocus) {
-    heading.focus({ preventScroll: true });
-    byId('route-announcer').textContent = heading.textContent ?? '';
   }
 }
 

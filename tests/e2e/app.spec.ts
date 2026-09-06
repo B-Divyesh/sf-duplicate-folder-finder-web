@@ -110,6 +110,26 @@ test('keyboard skip link and demo reset controls remain operable', async ({ page
   await expect(page.getByText('Demo reset to the original sample comparison.')).toBeVisible();
 });
 
+test('route completion preserves keyboard focus on Reset demo', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'requestAnimationFrame', {
+      configurable: true,
+      value: (callback: FrameRequestCallback) => window.setTimeout(() => callback(performance.now()), 75),
+    });
+  });
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Demo', exact: true }).first().click();
+  const reset = page.getByRole('button', { name: 'Reset demo' });
+  await expect(page.getByRole('heading', { name: 'These folders do not fully match.' })).toBeVisible();
+  await expect(reset).toBeEnabled();
+  await reset.focus();
+  await expect(reset).toBeFocused();
+  await page.waitForTimeout(600);
+  await expect(reset).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.getByText('Demo reset to the original sample comparison.')).toBeVisible();
+});
+
 test('demo controls cannot run while the sample is still scanning', async ({ page }) => {
   await page.addInitScript(() => {
     const NativeWorker = window.Worker;
