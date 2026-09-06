@@ -122,6 +122,7 @@ async function startScan(): Promise<void> {
   selectedFindings.clear();
   controller = new AbortController();
   const storageSpace = demoMode ? 'demo' : 'real';
+  let completed = false;
   setScanning(true);
   try {
     const b = selected.get('B');
@@ -129,12 +130,14 @@ async function startScan(): Promise<void> {
     activeReport = report;
     await saveReport(report, storageSpace);
     renderReport(report);
+    completed = true;
   } catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError') showError('Scan cancelled. No files were changed.');
     else showError(`The scan stopped. ${messageOf(error)}`);
   } finally {
     setScanning(false);
     controller = undefined;
+    if (completed) await scrollToCompletedResults();
   }
 }
 
@@ -186,15 +189,34 @@ function renderReport(report: ScanReport, restored = false): void {
   if (!report.duplicates.length && activeFilter === 'duplicates' && totalDifferences) activeFilter = report.differences.onlyA.length ? 'onlyA' : report.differences.onlyB.length ? 'onlyB' : 'changed';
   document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((tab) => tab.setAttribute('aria-pressed', String(tab.dataset.filter === activeFilter)));
   renderList();
-  if (!restored) {
-    const protectedTop = demoMode ? (matchMedia('(max-width: 720px)').matches ? 248 : 72) : 16;
-    const top = Math.max(0, resultsSection.getBoundingClientRect().top + window.scrollY - protectedTop);
-    if (demoMode) {
-      const previous = document.documentElement.style.scrollBehavior;
-      document.documentElement.style.scrollBehavior = 'auto';
-      window.scrollTo({ top, behavior: 'auto' });
-      document.documentElement.style.scrollBehavior = previous;
-    } else window.scrollTo({ top, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+}
+
+function afterLayoutPaint(): Promise<void> {
+  return new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+}
+
+async function scrollToCompletedResults(): Promise<void> {
+  await document.fonts.ready;
+  await afterLayoutPaint();
+  const heading = byId<HTMLHeadingElement>('results-title');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!demoMode) {
+    resultsSection.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    return;
+  }
+
+  const root = document.documentElement;
+  const previousBehavior = root.style.scrollBehavior;
+  root.style.scrollBehavior = 'auto';
+  try {
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      const bannerBottom = byId('demo-banner').getBoundingClientRect().bottom;
+      const headingTop = heading.getBoundingClientRect().top;
+      window.scrollBy({ top: headingTop - bannerBottom - 16, behavior: 'auto' });
+      await afterLayoutPaint();
+    }
+  } finally {
+    root.style.scrollBehavior = previousBehavior;
   }
 }
 

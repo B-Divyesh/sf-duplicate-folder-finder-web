@@ -160,6 +160,37 @@ test('390px demo banner and controls remain visible after the sample result scro
   }
 });
 
+test('one-click phone demo keeps its result heading below the banner in repeated warmed fresh contexts', async ({ browser, baseURL }) => {
+  const contextOptions = { baseURL, viewport: { width: 390, height: 844 } };
+  const warmContext = await browser.newContext(contextOptions);
+  const warmPage = await warmContext.newPage();
+  await warmPage.goto('/');
+  await warmPage.getByRole('link', { name: 'Try it with sample data' }).first().click();
+  await expect(warmPage.getByRole('heading', { name: 'These folders do not fully match.' })).toBeVisible();
+  await warmContext.close();
+
+  for (let run = 1; run <= 10; run += 1) {
+    const context = await browser.newContext(contextOptions);
+    const page = await context.newPage();
+    await page.goto('/');
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Enter');
+    await page.getByRole('link', { name: 'Try it with sample data' }).first().click();
+    await expect(page.getByRole('heading', { name: 'These folders do not fully match.' })).toBeVisible();
+    await page.waitForTimeout(300);
+    const geometry = await page.evaluate(() => {
+      const banner = document.getElementById('demo-banner')!.getBoundingClientRect();
+      const heading = document.getElementById('results-title')!.getBoundingClientRect();
+      const verdict = document.getElementById('verdict-title')!.getBoundingClientRect();
+      return { bannerBottom: banner.bottom, headingTop: heading.top, headingBottom: heading.bottom, verdictTop: verdict.top, viewportHeight: innerHeight };
+    });
+    expect(geometry.headingTop, `run ${run}: result heading overlaps the demo banner`).toBeGreaterThanOrEqual(geometry.bannerBottom);
+    expect(geometry.verdictTop, `run ${run}: result verdict overlaps the demo banner`).toBeGreaterThanOrEqual(geometry.bannerBottom);
+    expect(geometry.headingBottom, `run ${run}: result heading is outside the phone viewport`).toBeLessThanOrEqual(geometry.viewportHeight);
+    await context.close();
+  }
+});
+
 test('legal routes and Back place focus on their route heading', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('link', { name: 'Privacy', exact: true }).first().click();
