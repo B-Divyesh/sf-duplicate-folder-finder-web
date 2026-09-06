@@ -6,6 +6,19 @@ Live URL: <https://duplicate-folder-finder-web.sociobot.in>
 
 Result: **PASS — no known open review findings**
 
+## Verification 3
+
+Independent verification on 2026-09-06 recorded **PASS — 0 findings and 0 untested claims** in `.factory/verification-3.md`.
+
+- Implementation reviewed: `e287789442e0d2cb059ebed3c11cabb6d55d7375`.
+- Test-only follow-up reviewed: `bcab01e95d0cd23b2ea95baad9dabae580fffb0f`.
+- Documentation commit: `10db3b1cbf0481a0f333cfb1b08576c6df04e3af`.
+- Fresh-checkout quality gates passed: 10 unit tests, all 10 exact claim commands, build/deployment contract, and 46 E2E tests.
+- Fresh desktop and phone live checks passed. The first screen states the job, audience, and sample action before scrolling; the sample is populated, labelled, resettable, and isolated from real data.
+- The repaired phone demo result cleared its persistent banner in 20/20 warmed fresh contexts, with 15.89px minimum heading clearance.
+- Live verification passed offline, routes/404, keyboard/focus/reduced motion, accessibility, privacy, links, headers, byte-for-byte artifacts (27/27 public files), and mobile Lighthouse: 100 Performance, Accessibility, Best Practices, and SEO.
+- Evidence: `/work/.evidence/duplicate-folder-finder-web-verify-3/`. Required summary: `/work/.evidence/qa-report.md` and `/work/.evidence/qa-result.json`.
+
 ## Product and first action
 
 Mirrorbyte compares one or two folders and finds exact duplicate subfolders and file differences. It is for people checking backups, old drives, or photo dumps without uploading files. The first action on phone and desktop is **Try it with sample data**, followed by a completed comparison.
