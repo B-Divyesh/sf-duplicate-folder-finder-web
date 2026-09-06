@@ -58,3 +58,5 @@ The 1200×630 social image is a center crop of that original hero source, create
 ## Repair additions
 
 Demo mode uses an amber, console-like status rail above the cyan comparison workspace. It reads as a temporary sandbox without changing the established pixel/demoscene identity. The 404 screen turns the directory blocks into a visibly broken path, reusing the same hard edges, cyan line, and amber exception marker. On phones, the artwork recedes so the job statement and sample action fit before the first viewport ends.
+
+The completed phone result is positioned only after the progress panel closes. Its heading keeps a measured 16px gap below the sticky demo rail, preserving the established spacing rhythm without adding motion.
