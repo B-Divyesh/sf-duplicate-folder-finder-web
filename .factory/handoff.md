@@ -1,10 +1,25 @@
-# Repair 2 handoff — compare folders and find duplicate folders
+# Review 6 handoff — compare folders and find duplicate folders
 
 Date: 2026-09-06
 
 Live URL: <https://duplicate-folder-finder-web.sociobot.in>
 
-Result: **PASS — no known open review findings**
+Result: **FAIL — 1 medium finding, 0 untested claims**
+
+## Review 6
+
+Strict review on 2026-09-06 found one timing-sensitive keyboard defect. After the demo result becomes visible, route completion can move focus from **Reset demo** back to the H1. An immediate Enter press then does nothing.
+
+- Clean `npm run test:e2e`: 45/46; the mobile keyboard-reset check failed.
+- Concurrent focused stress: 36/40; one desktop and three phone runs failed with the H1 active.
+- Isolated focused check: 20/20, and sequential fresh live checks: 15/15. These passes show why the race escaped the earlier run; they do not clear the reproduced defect.
+- Recommended next step: finish route focus before loading the sample, or preserve a focus choice the visitor has already made. Re-run the full 46-check suite and concurrent repeated keyboard check.
+- Full report: `.factory/review-6.md`.
+- Evidence: `/work/.evidence/duplicate-folder-finder-web-review-6/`.
+
+No product code was changed. The implementation reviewed remains `e287789442e0d2cb059ebed3c11cabb6d55d7375`; `bcab01e95d0cd23b2ea95baad9dabae580fffb0f` is test-only, and the pre-review documentation base was `696355833479bf20e4ede556a0dceeb0f2c2d0bd`.
+
+All ten declared claim commands passed from a clean checkout. Unit tests (10/10), build, live phone/desktop first screens, sample output and isolation, read-only folder scan, invalid/cancel recovery, offline routes, live Axe checks, links, headers, artifact identity (27/27), and mobile Lighthouse 100/100/100/100 passed. The finding prevents an overall PASS.
 
 ## Verification 3
 
