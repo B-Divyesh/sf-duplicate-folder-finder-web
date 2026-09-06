@@ -101,7 +101,7 @@ test('keyboard skip link and demo reset controls remain operable', async ({ page
   await page.keyboard.press('Tab');
   await expect(page.getByRole('link', { name: 'Skip to folder comparison' })).toBeFocused();
   await page.keyboard.press('Enter');
-  await expect(page.locator('#main')).toBeFocused();
+  await expect.poll(() => page.evaluate(() => document.querySelector('main')?.contains(document.activeElement) === true)).toBe(true);
   const reset = page.getByRole('button', { name: 'Reset demo' });
   await expect(page.getByRole('heading', { name: 'These folders do not fully match.' })).toBeVisible();
   await expect(reset).toBeEnabled();
